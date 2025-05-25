@@ -14,8 +14,8 @@
 
 from __future__ import annotations
 
-from dtools.containers.maybe import MayBe
-from dtools.containers.xor import Xor, LEFT, RIGHT
+from pythonic_fp.containers.maybe import MayBe
+from pythonic_fp.containers.xor import Xor, LEFT, RIGHT
 
 
 def add_lt_42(x: int, y: int) -> MayBe[int]:

@@ -14,7 +14,7 @@
 
 """### Developer Tools - Container-like data structures
 
-- *module* `dtools.containers`: Container-like data structures
+- *module* `pythonic_fp.containers`: Container-like data structures
   - *module* `box`: stateful container holding at most one object
   - *module* `functional_tuple`: directly inherited from the `tuple` builtin 
     - gives `tuple` FP interface

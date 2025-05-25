@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""### Module dtools.fp.err_handling - monadic error handling
+"""Pythonic FP - Monadic error handling
 
 Functional data types to use in lieu of exceptions.
 
@@ -26,7 +26,7 @@ __all__ = ['MayBe']
 
 from collections.abc import Callable, Iterator, Sequence
 from typing import cast, Final, Never, overload, TypeVar
-from dtools.fp.singletons import Sentinel
+from pythonic_fp.fptools.singletons import Sentinel
 
 D = TypeVar('D', covariant=True)
 

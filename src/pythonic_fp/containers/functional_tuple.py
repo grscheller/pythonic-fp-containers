@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-### dtools.containers.ftuples.wrapped
+"""Pythonic FP - Functional Tuple 
 
 Providing a FP interface for tuples. Implemented by inheriting from tuple.
 
@@ -31,7 +30,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterator
 from typing import cast, Never, overload, TypeVar
-from dtools.iterables import FM, accumulate, concat, exhaust, merge
+from pythonic_fp.iterables import FM, accumulate, concat, exhaust, merge
 
 __all__ = ['FunctionalTuple']
 

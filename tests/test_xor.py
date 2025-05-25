@@ -15,9 +15,9 @@
 from __future__ import annotations
 
 from typing import Never
-from dtools.containers.immutable_list import immutable_list as ilist
-from dtools.containers.maybe import MayBe as MB
-from dtools.containers.xor import Xor, LEFT, RIGHT
+from pythonic_fp.containers.immutable_list import immutable_list as ilist
+from pythonic_fp.containers.maybe import MayBe as MB
+from pythonic_fp.containers.xor import Xor, LEFT, RIGHT
 
 
 # -- Simple contrived tests ----------------------------------------------------

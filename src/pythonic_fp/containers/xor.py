@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""### Module dtools.fp.err_handling - monadic error handling
-
-Functional data types to use in lieu of exceptions.
+"""Pythonic FP - Either monad 
 
 - *class* Xor: left biased either monad
 
@@ -26,8 +24,8 @@ __all__ = ['Xor', 'LEFT', 'RIGHT']
 
 from collections.abc import Callable, Iterator, Sequence
 from typing import cast, Never, overload, TypeVar
-from dtools.fp.bool import Bool as Both, Truth as Left, Lie as Right
-from dtools.fp.singletons import Sentinel as _Sentinel
+from pythonic_fp.fptools.bool import Bool as Both, Truth as Left, Lie as Right
+from pythonic_fp.fptools.singletons import Sentinel as _Sentinel
 from .maybe import MayBe
 
 L = TypeVar('L', covariant=True)

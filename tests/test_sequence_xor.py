@@ -15,10 +15,10 @@
 from __future__ import annotations
 
 from typing import Final
-from dtools.containers.functional_tuple import FunctionalTuple as FT
-from dtools.containers.functional_tuple import functional_tuple as ft
-from dtools.queues.de import DEQueue as DQ, de_queue as dq
-from dtools.containers.xor import Xor, LEFT, RIGHT
+from pythonic_fp.containers.functional_tuple import FunctionalTuple as FT
+from pythonic_fp.containers.functional_tuple import functional_tuple as ft
+from pythonic_fp.queues.de import DEQueue as DQ, de_queue as dq
+from pythonic_fp.containers.xor import Xor, LEFT, RIGHT
 
 
 class Test_Xor_sequence:

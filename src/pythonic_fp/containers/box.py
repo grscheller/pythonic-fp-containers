@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Stateful container holding at most one item of a given type.
+"""Pythonic FP - Stateful container holding at most one item of a given type.
 
 - where `Box(item)` contains at most one item of a generic type
 - `Box()` semantically represents an empty container
@@ -31,7 +31,7 @@ __all__ = ['Box']
 
 from collections.abc import Callable, Iterator
 from typing import cast, Final, Never, overload, TypeVar
-from dtools.fp.singletons import Sentinel
+from pythonic_fp.fptools.singletons import Sentinel
 
 
 D = TypeVar('D')

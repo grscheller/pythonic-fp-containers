@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from dtools.containers.maybe import MayBe as MB
+from pythonic_fp.containers.maybe import MayBe as MB
 
 
 def add2(x: int) -> int:

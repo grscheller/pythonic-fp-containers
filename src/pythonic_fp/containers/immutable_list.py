@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-#### Immutable homogeneous "lists"
+"""Pythonic FP - Immutable guaranteed hashable lists
 
 - immutable data structure whose elements are all of the same type
 - hashable if elements are hashable
-  - TODO: not sure if I am enforcing hashability
 - declared covariant in its generic datatype
   - hashability should be enforced by LSP tooling
   - hashability will be enforced at runtime
@@ -30,7 +28,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Iterator, Hashable
 from typing import cast, Never, overload, TypeVar
-from dtools.iterables import FM, accumulate, concat, exhaust, merge
+from pythonic_fp.iterables import FM, accumulate, concat, exhaust, merge
 
 __all__ = ['ImmutableList', 'immutable_list']
 

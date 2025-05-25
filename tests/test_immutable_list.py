@@ -13,11 +13,11 @@
 # limitations under the License.
 
 from __future__ import annotations
-from dtools.containers.immutable_list import ImmutableList as IL
-from dtools.containers.immutable_list import immutable_list as il
-from dtools.containers.maybe import MayBe as MB
-from dtools.containers.xor import Xor, RIGHT
-from dtools.iterables import FM
+from pythonic_fp.containers.immutable_list import ImmutableList as IL
+from pythonic_fp.containers.immutable_list import immutable_list as il
+from pythonic_fp.containers.maybe import MayBe as MB
+from pythonic_fp.containers.xor import Xor, RIGHT
+from pythonic_fp.iterables import FM
 
 class TestImmutableList:
     """ImmutableList test suite"""

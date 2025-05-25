@@ -14,11 +14,11 @@
 
 from __future__ import annotations
 from typing import reveal_type
-from dtools.containers.functional_tuple import FunctionalTuple as FT
-from dtools.containers.functional_tuple import functional_tuple as ft
-from dtools.containers.maybe import MayBe as MB
-from dtools.containers.xor import Xor, RIGHT
-from dtools.iterables import FM
+from pythonic_fp.containers.functional_tuple import FunctionalTuple as FT
+from pythonic_fp.containers.functional_tuple import functional_tuple as ft
+from pythonic_fp.containers.maybe import MayBe as MB
+from pythonic_fp.containers.xor import Xor, RIGHT
+from pythonic_fp.iterables import FM
 
 class TestFunctionalTuple:
     """FunctionalTuple test suite"""
