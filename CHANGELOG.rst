@@ -1,5 +1,5 @@
 ===================================
-# CHANGELOG: Pythonic FP Containers
+CHANGELOG: Pythonic FP Containers
 ===================================
 
 PyPI pythonic-fp.containers project.
