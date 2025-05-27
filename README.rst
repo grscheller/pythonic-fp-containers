@@ -5,21 +5,21 @@ Pythonic FP - Containers
 Container based data structure, part of the
 `PyPI pythonic-fp Namespace Projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.
 
-Repositories
-------------
+Repositories:
+-------------
 
 - `pythonic-fp.containers <https://pypi.org/project/pythonic-fp.containers>`_ project on *PyPI*
 - `Source code <https://github.com/grscheller/pythonic-fp-containers>`_ on *GitHub*.
 
-Detailed documentation
-----------------------
+Detailed documentation:
+-----------------------
 
 Detailed API
 `documentation <https://grscheller.github.io/pythonic-fp/maintained/containers>`_
 on *GH-Pages*.
 
-Features
---------
+Features:
+---------
 
 Single item box - dtools.containers.box
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -58,13 +58,13 @@ values can be the same or different types. The "left" value is usually
 taken to be the "happy path" of code flow. The "right" value is often
 used for an error condition or a text string describing what went wrong.
 
-Installation
-------------
+Installation:
+-------------
 
 | $ pip install pythonic-fp.containers
 
-Support
--------
+Support:
+--------
 
 If you have any questions or issues with the software, feel free to reach out
 to the maintainer at geoffrey@scheller.com, or submit an issue on GitHub's issue
@@ -86,8 +86,8 @@ CHANGELOG
 
 See the `CHANGELOG <https://github.com/grscheller/pythonic-fp-containers/blob/main/CHANGELOG.rst>`_
 
-License
--------
+License:
+--------
 
 This project is licensed under the Apache License Version 2.0, January 2004.
 See the `LICENCE file <https://github.com/grscheller/pythonic-fp-containers/blob/main/LICENSE>`_
