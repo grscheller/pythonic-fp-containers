@@ -32,36 +32,35 @@ from pythonic_fp.iterables import FM, accumulate, concat, exhaust, merge
 
 __all__ = ['ImmutableList', 'immutable_list']
 
-D_co = TypeVar('D_co', covariant=True)
+D = TypeVar('D', covariant=True)
 
 
-class ImmutableList[D_co](Hashable):
+class ImmutableList[D](Hashable):
     """Immutable List like data structures
 
-    - immutable "lists" all whose elements are all of the same type
+    - immutable "lists" all whose elements are all of the same type `+D`
     - A `ImmutableList` is covariant in its generic datatype
       - its method type parameters are also declared covariant
       - hashability will be enforced by LSP tooling
     - supports both indexing and slicing
-    - `ImmutableList` addition & `int` multiplication supported
-      - addition concatenates results, resulting type a Union type
-      - both left and right int multiplication supported
+    - addition concatenates results, resulting type a Union type
+    - both left and right int multiplication supported
 
     """
 
     __slots__ = ('_ds', '_len', '_hash')
     __match_args__ = ('_ds', '_len')
 
-    L_co = TypeVar('L_co', covariant=True)
-    R_co = TypeVar('R_co', covariant=True)
-    U_co = TypeVar('U_co', covariant=True)
+    L = TypeVar('L', covariant=True)
+    R = TypeVar('R', covariant=True)
+    U = TypeVar('U', covariant=True)
 
-    def __init__(self, *dss: Iterable[D_co]) -> None:
+    def __init__(self, *dss: Iterable[D]) -> None:
         if (size := len(dss)) > 1:
             msg = f'ImmutableList expects at most 1 iterable argument, got {size}'
             raise ValueError(msg)
         else:
-            self._ds: tuple[D_co, ...] = tuple(dss[0]) if size == 1 else tuple()
+            self._ds: tuple[D, ...] = tuple(dss[0]) if size == 1 else tuple()
             self._len = len(self._ds)
             try:
                 self._hash = hash((self._len, 42) + self._ds)
@@ -72,10 +71,10 @@ class ImmutableList[D_co](Hashable):
     def __hash__(self) -> int:
         return self._hash
 
-    def __iter__(self) -> Iterator[D_co]:
+    def __iter__(self) -> Iterator[D]:
         return iter(self._ds)
 
-    def __reversed__(self) -> Iterator[D_co]:
+    def __reversed__(self) -> Iterator[D]:
         return reversed(self._ds)
 
     def __bool__(self) -> bool:
@@ -100,34 +99,34 @@ class ImmutableList[D_co](Hashable):
         return self._ds == other._ds
 
     @overload
-    def __getitem__(self, idx: int, /) -> D_co: ...
+    def __getitem__(self, idx: int, /) -> D: ...
     @overload
-    def __getitem__(self, idx: slice, /) -> ImmutableList[D_co]: ...
+    def __getitem__(self, idx: slice, /) -> ImmutableList[D]: ...
 
-    def __getitem__(self, idx: slice | int, /) -> ImmutableList[D_co] | D_co:
+    def __getitem__(self, idx: slice | int, /) -> ImmutableList[D] | D:
         if isinstance(idx, slice):
             return ImmutableList(self._ds[idx])
         return self._ds[idx]
 
-    def foldl[L_co](
+    def foldl[L](
         self,
-        f: Callable[[L_co, D_co], L_co],
+        f: Callable[[L, D], L],
         /,
-        start: L_co | None = None,
-        default: L_co | None = None,
-    ) -> L_co | None:
+        start: L | None = None,
+        default: L | None = None,
+    ) -> L | None:
         """Fold Left
 
         - fold left with an optional starting value
         - first argument of function `f` is for the accumulated value
-        - throws `ValueError` when `ImmutableList` empty and a start value not given
+        - raises `ValueError` when `ImmutableList` empty and a start value not given
 
         """
         it = iter(self._ds)
         if start is not None:
             acc = start
         elif self:
-            acc = cast(L_co, next(it))  # L_co = D_co in this case
+            acc = cast(L, next(it))  # L_co = D_co in this case
         else:
             if default is None:
                 msg0 = 'ImmutableList: foldl method requires '
@@ -139,25 +138,25 @@ class ImmutableList[D_co](Hashable):
             acc = f(acc, v)
         return acc
 
-    def foldr[R_co](
+    def foldr[R](
         self,
-        f: Callable[[D_co, R_co], R_co],
+        f: Callable[[D, R], R],
         /,
-        start: R_co | None = None,
-        default: R_co | None = None,
-    ) -> R_co | None:
+        start: R | None = None,
+        default: R | None = None,
+    ) -> R | None:
         """Fold Right
 
         - fold right with an optional starting value
         - second argument of function `f` is for the accumulated value
-        - throws `ValueError` when `ImmutableList` empty and a start value not given
+        - raises `ValueError` when `ImmutableList` empty and a start value not given
 
         """
         it = reversed(self._ds)
         if start is not None:
             acc = start
         elif self:
-            acc = cast(R_co, next(it))
+            acc = cast(R, next(it))
         else:
             if default is None:
                 msg0 = 'ImmutableList: foldr method requires '
@@ -169,22 +168,22 @@ class ImmutableList[D_co](Hashable):
             acc = f(v, acc)
         return acc
 
-    def __add__(self, other: ImmutableList[D_co], /) -> ImmutableList[D_co]:
+    def __add__(self, other: ImmutableList[D], /) -> ImmutableList[D]:
         if not isinstance(other, ImmutableList):
             msg = 'ImmutableList being added to something not a ImmutableList'
             raise ValueError(msg)
 
         return ImmutableList(concat(self, other))
 
-    def __mul__(self, num: int, /) -> ImmutableList[D_co]:
+    def __mul__(self, num: int, /) -> ImmutableList[D]:
         return ImmutableList(self._ds.__mul__(num if num > 0 else 0))
 
-    def __rmul__(self, num: int, /) -> ImmutableList[D_co]:
+    def __rmul__(self, num: int, /) -> ImmutableList[D]:
         return ImmutableList(self._ds.__mul__(num if num > 0 else 0))
 
-    def accummulate[L_co](
-        self, f: Callable[[L_co, D_co], L_co], s: L_co | None = None, /
-    ) -> ImmutableList[L_co]:
+    def accummulate[L](
+        self, f: Callable[[L, D], L], s: L | None = None, /
+    ) -> ImmutableList[L]:
         """Accumulate partial folds
 
         Accumulate partial fold results in an ImmutableList with an optional
@@ -195,12 +194,12 @@ class ImmutableList[D_co](Hashable):
             return ImmutableList(accumulate(self, f))
         return ImmutableList(accumulate(self, f, s))
 
-    def map[U_co](self, f: Callable[[D_co], U_co], /) -> ImmutableList[U_co]:
+    def map[U](self, f: Callable[[D], U], /) -> ImmutableList[U]:
         return ImmutableList(map(f, self))
 
-    def bind[U_co](
-        self, f: Callable[[D_co], ImmutableList[U_co]], type: FM = FM.CONCAT, /
-    ) -> ImmutableList[U_co] | Never:
+    def bind[U](
+        self, f: Callable[[D], ImmutableList[U]], type: FM = FM.CONCAT, /
+    ) -> ImmutableList[U] | Never:
         """Bind function `f` to the `ImmutableList`.
 
         * FM Enum types
@@ -220,5 +219,5 @@ class ImmutableList[D_co](Hashable):
         raise ValueError(f'ImmutableList: Unknown FM type: {type}')
 
 
-def immutable_list[D_co](*ds: D_co) -> ImmutableList[D_co]:
+def immutable_list[D](*ds: D) -> ImmutableList[D]:
     return ImmutableList(ds)

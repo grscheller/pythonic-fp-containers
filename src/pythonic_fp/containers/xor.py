@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Either monad 
+"""Pythonic FP - Either monad
 
 - *class* Xor: left biased either monad
 
@@ -40,8 +40,8 @@ class Xor[L, R]:
     value, but not both.
 
     - implements a left biased Either Monad
-      - `Xor(value: ~L, LEFT)` produces a left `Xor`
-      - `Xor(value: ~L, RIGHT)` produces a right `Xor`
+      - `Xor(value: +L, LEFT)` produces a left `Xor`
+      - `Xor(value: +L, RIGHT)` produces a right `Xor`
     - in a Boolean context
       - `True` if a left `Xor`
       - `False` if a right `Xor`
@@ -54,6 +54,10 @@ class Xor[L, R]:
         - warning: contained value need not be immutable
         - warning: not hashable if value is mutable
 
+    ```
+       Xor(value: +L, side: Left): Xor[+L, +R] -> left: Xor[+L, +R]
+       Xor(value: +R, side: Right): Xor[+L, +R] -> right: Xor[+L, +R]
+    ```
     """
 
     __slots__ = '_value', '_side'
@@ -169,11 +173,11 @@ class Xor[L, R]:
         """Map over if a left value - with fallback upon exception.
 
         - if `Xor` is a left then map `f` over its value
-          - if `f` successful return a left `Xor[U, R]`
-          - if `f` unsuccessful return right `Xor[S, R]`
+          - if `f` successful return a left `Xor[+U, +R]`
+          - if `f` unsuccessful return right `Xor[+U, +R]`
             - swallows many exceptions `f` may throw at run time
         - if `Xor` is a right
-          - return new `Xor(right=self._right): Xor[U, R]`
+          - return new `Xor(right=self._right): Xor[+U, +R]`
 
         """
         if self._side == RIGHT:

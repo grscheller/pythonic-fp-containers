@@ -34,19 +34,24 @@ D = TypeVar('D', covariant=True)
 class MayBe[D]:
     """Maybe monad - class wrapping a potentially missing value.
 
-    - where `MayBe(value)` contains a possible value of type `~D`
-    - `MayBe()` semantically represent a non-existent or missing value of type `~D`
+    - where `MayBe(value)` contains a possible value of type `+D`
+    - `MayBe()` represent a non-existent or missing value of type `+D`
     - immutable semantics
       - immutable, therefore made covariant
       - can store any value of any type with one exception
-        - if `~D` is `Sentinel`, storing `Sentinel(MayBe)` results in a MayBe()
+        - if `+D` is `Sentinel`, storing `Sentinel(MayBe)` results in a MayBe()
     - WARNING: hashability invalidated if contained value is not hashable
       - hash function will fail if `MayBe` contains an unhashable value
     - WARNING: unsafe method `get`
       - will raise `ValueError` if MayBe empty and an alt return value not given
       - best practice is to first check the MayBe in a boolean context
 
+    ```
+       MayBe(): MayBe[+D] -> mb: Xor[+D]
+       MayBe(value: +D) -> mb: Xor[+D]
+    ```
     """
+
     U = TypeVar('U', covariant=True)
     V = TypeVar('V', covariant=True)
     T = TypeVar('T')
@@ -97,7 +102,7 @@ class MayBe[D]:
     def get(self, alt: D | Sentinel = Sentinel('MayBe')) -> D | Never:
         """Return the contained value if it exists, otherwise an alternate value.
 
-        - alternate value must be of type `~D`
+        - alternate value must be of type `+D`
         - raises `ValueError` if an alternate value is not provided but needed
 
         """
@@ -169,7 +174,7 @@ class MayBe[D]:
         """Sequence a mutable indexable of type `MayBe[~T]`
 
         * if the iterated `MayBe` values are not all empty,
-          * return a `MayBe` of an iterator of the contained values
+          * return a `MayBe` of the Sequence subtype of the contained values
           * otherwise return an empty `MayBe`
 
         """
@@ -222,4 +227,3 @@ class MayBe[D]:
             mb_return = MayBe()
 
         return mb_return
-
