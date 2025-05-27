@@ -71,18 +71,18 @@ to the maintainer at geoffrey@scheller.com, or submit an issue on GitHub's issue
 tracker.
 
 Contribute
-----------
+^^^^^^^^^^
 
 - Issue Tracker: https://github.com/grscheller/pythonic-fp-containers/issues
 - Pull Requests: https://github.com/grscheller/pythonic-fp-containers/pulls
 
 Contributers
-------------
+^^^^^^^^^^^^
 
 - `@grscheller <https://github.com/grscheller>`_ (Geoffrey R. Scheller - maintainer)
 
 CHANGELOG
----------
+^^^^^^^^^
 
 See the `CHANGELOG <https://github.com/grscheller/pythonic-fp-containers/blob/main/CHANGELOG.rst>`_
 
