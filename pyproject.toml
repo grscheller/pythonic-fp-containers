@@ -16,8 +16,8 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  "pythonic-fp.fptools >=3.0.0, <3.1",
-  "pythonic-fp.iterables >=3.0.0, <3.1",
+  "pythonic-fp.fptools >=3.0.0",
+  "pythonic-fp.iterables >=3.0.0",
 ]
 dynamic = ["description"]
 
@@ -30,8 +30,8 @@ Source = "https://github.com/grscheller/pythonic-fp-containers"
 [project.optional-dependencies]
 test = [
   "pytest >=8.3.5",
-  "pythonic-fp.queues >=3.0.0, <3.1",
-  "pythonic-fp.splitends >=0.30.0, <0.31",
+  "pythonic-fp.queues >=3.0.0",
+  "pythonic-fp.splitends >=0.30.0",
 ]
 
 [build-system]
