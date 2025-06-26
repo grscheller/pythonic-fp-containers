@@ -9,7 +9,7 @@ Detailed API
 [documentation](https://grscheller.github.io/pythonic-fp/maintained/containers)
 on *GH-Pages*.
 
-## Features
+## Features:
 
 ### Single item box - dtools.containers.box
 
@@ -43,13 +43,13 @@ values can be the same or different types. The "left" value is usually
 taken to be the "happy path" of code flow. The "right" value is often
 used for an error condition or a text string describing what went wrong.
 
-## Installation
+## Installation:
 
 ```
     $ pip install pythonic-fp.containers
 ```
 
-## Contribute
+## Contribute:
 
 - Project on PyPI: https://pypi.org/project/pythonic-fp.containers
 - Source Code: https://github.com/grscheller/pythonic-fp-containers
@@ -59,7 +59,7 @@ used for an error condition or a text string describing what went wrong.
 
 | Contributors | Name | Role |
 |:------------ |:---- |:---- |
-| [@grscheller](https://github.com/grscheller) | Geoffrey R. Scheller | author, maintainer |
+| [grscheller](https://github.com/grscheller) | Geoffrey R. Scheller | author, maintainer |
 
 
 ### License Information
