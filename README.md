@@ -13,7 +13,7 @@ implementing a Python package of container like data structures.
 | Either monad | *module* `pythonic_fp.containers.xor` |
 
 This PyPI project is part of of the grscheller
-[pythonic-fp namespace projects](https://grscheller.github.io/pythonic-fp/).
+[pythonic-fp namespace projects](https://github.com/grscheller/pythonic-fp/blob/main/README.md).
 
 ## Documentation
 

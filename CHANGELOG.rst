@@ -1,49 +1,48 @@
-===================================
-CHANGELOG: Pythonic FP Containers
-===================================
+*********
+CHANGELOG
+*********
 
 PyPI pythonic-fp.containers project.
 
-- Strict 3 digit semantic versioning (adopted 2025-05-19)
+Semantic Versioning
+===================
 
-  - MAJOR version for incompatible API changes
-  - MINOR version for backward compatible added functionality
-  - PATCH version for backward compatible bug fixes
+Strict 3 digit semantic versioning adopted 2025-05-19.
+
+- **MAJOR** version incremented for incompatible API changes
+- **MINOR** version incremented for backward compatible added functionality
+- **PATCH** version incremented for backward compatible bug fixes
 
 Releases and Important Milestones
----------------------------------
+=================================
 
-Version 1.0.0 - PyPI release date 2025-05-TBA
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2.0.0 - TBD
+-----------
 
-- first PyPI release as dtools.containers
+First PyPI release as pythonic-fp.containers
 
-  - box.py -> stateful (mutable) container that can contain 0 ot 1 items
-  - functional_tuple.py -> easier starting point to inherit from tuple
-  - immutable_list.py -> immutable, guaranteed hashable "list"
-  - maybe.py -> implements the "maybe" monad from FP
-  - xor.py -> implements a left biased either monad from FP
+- switched from pdoc to Sphinx for docstring documentation generation.
 
-Adapting strict Semantic from this point on - date 2025-05-19
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.0 - 2025-05-22
+------------------
 
-- [Semantic Versioning 2.0.0](https://semver.org/)
-- see top of file
-- previous versioning scheme used
+First PyPI release as dtools.containers
 
-  - first digit - major event, epoch, or paradigm shift
-  - second digit - breaking API changes, major changes
-  - third digit - bug fixes, API additions, docstring changes
+- box.py -> stateful (mutable) container that can contain 0 ot 1 items
+- functional_tuple.py -> easier starting point to inherit from tuple
+- immutable_list.py -> immutable, guaranteed hashable "list"
+- maybe.py -> implements the "maybe" monad from FP
+- xor.py -> implements a left biased either monad from FP
 
-Version 0.27.1 - PyPI release date 2025-04-22
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.27.1 - 2025-04-22
+-------------------
 
 - replaced camelCaseNames method names with snake_case_names
 - docstring changes
 - pyproject.toml standardization
 
-Version 0.27.0 - PyPI release date 2025-04-07
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.27.0 - 2025-04-07
+-------------------
 
 - first PyPI release as dtools.tuples
 
@@ -54,33 +53,30 @@ Version 0.27.0 - PyPI release date 2025-04-07
 
 - typing improvements
 
-Version 0.25.1 - PyPI release date 2025-01-16
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.25.1 - 2025-01-16
+-------------------
 
 - Fixed pdoc issues with new typing notation
 
   - updated docstrings
   - had to add TypeVars
 
-Version 0.25.0 - PyPI release date 2025-01-17
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.25.0 - 2025-01-17
+-------------------
 
 - First release under dtools.datastructures name
 
-Version 0.24.0 - PyPI release date 2024-11-18
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.24.0 - 2024-11-18
+-------------------
 
 - Changed flatMap to bind thru out project
 
-Version 0.23.1 - PyPI release date 2024-11-18
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.23.1 - 2024-11-18
+-------------------
 
 - Fixed bug with datastructures.tuple module
 
   - forgot to import std lib typing.cast into tuples.py
-
-Version 0.22.3.0 - Preparing for a 0.23.0 PyPI release
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - renamed class FTuple -> ftuple
 
@@ -90,15 +86,15 @@ Version 0.22.3.0 - Preparing for a 0.23.0 PyPI release
 
   - ``FT[D](*ds: D) -> ftuple[D]``
 
-Version 0.22.1 - PyPI release date 2024-10-20
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.22.1 - 2024-10-20
+-------------------
 
 Removed docs from repo. Documentation for all grscheller namespace
 projects is now maintained
 here: https://grscheller.github.io/grscheller-pypi-namespace-docs/
 
-Version 0.22.0 - PyPI release date 2024-10-18
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.22.0 - 2024-10-18
+-------------------
 
 - made classes in nodes module less passive with better encapsulation
 - compatible with:
@@ -106,20 +102,19 @@ Version 0.22.0 - PyPI release date 2024-10-18
   - grscheller.fp >= 1.0.0 < 1.0.1
   - grscheller.circular-array >= 3.6.1 < 3.7
 
-Version 0.21.0 - PyPI release date 2024-08-20
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.21.0 - 2024-08-20
+-------------------
 
 Got back to a state maintainer is happy with. Many dependencies needed
 updating first.
 
-Version 0.20.5.1 - datastructures coming back together 2024-08-19
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 - works with all the current versions of fp and circular-array
 - preparing for PyPI 0.21.0 release
 
-Version 0.20.5.0 - datastructures coming back together 2024-08-17
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.20.5.0 - 2024-08-17
+---------------------
+
+Development environment only. Datastructures coming back together
 
 - updated to use grscheller.fp.nada instead of grscheller.untyped.nothing
 
@@ -135,33 +130,40 @@ Version 0.20.5.0 - datastructures coming back together 2024-08-17
   - need to find good SplitEnd use case
   - other Stack variants like SplintEnd??? (shared data/node variants?)
 
-Version 0.20.2.0 - Going down a typing rabbit hole 2024-08-03
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.20.2.0 - 2024-08-03
+---------------------
 
-- still preparing for the 1.0.0 datastructures release
+Development environment only.
+Still preparing for 1.0.0 datastructures release.
+
+- Going down a typing rabbit hole
 
   - as I tighten up typing, I find I must do so for dependencies too
   - using `# type: ignore` is a band-aid, use `@overload` and `cast` instead
   - using `@overload` to "untype" optional parameters is the way to go
   - use `cast` only when you have knowledge beyond what the typechecker can know
 
-Version 0.19.0 - PyPI release date 2024-07-15
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.19.0 - 2024-07-15
+-------------------
 
 - continuing to prepare for PyPI release 1.0.0
 - cleaned up docstrings for a 1.0.0 release
 - changed accumulate1 to accumulate for FTuple
 - considering requiring grscheller.fp as a dependency
 
-Version 0.18.0.0 - Beginning to prepare for PyPI release 1.0.0
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.18.0.0 - Beginning to prepare for PyPI release 1.0.0
+------------------------------------------------------
+
+Devel environment only.
 
 - first devel version requiring circular-array 3.1.0
 - still some design work to be done
 - TODO: Verify flatMap family yields results in "natural" order
 
-Version 0.17.0.4 - Start of effort to relax None restrictions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.17.0.4 - Start of effort to relax None restrictions
+-----------------------------------------------------
+
+Devel environment only.
 
 - have begun relaxing the requirement of not storing None as a value
 
@@ -170,8 +172,10 @@ Version 0.17.0.4 - Start of effort to relax None restrictions
 - requires grscheller.circular-array >= 3.0.3.0
 - perhaps next PyPI release will be v1.0.0 ???
 
-Version 0.16.0.0 - Preparing to support PEP 695 generics
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.16.0.0 - Preparing to support PEP 695 generics
+------------------------------------------------
+
+Devel environment only.
 
 - Requires Python >= 3.12
 - preparing to support PEP 695 generics
@@ -186,16 +190,18 @@ Version 0.16.0.0 - Preparing to support PEP 695 generics
   - map methods now return copies
   - THEREFORE: tests need to be completely overhauled
 
-Version 0.14.1.1 - Preparing to add TypeVars
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.14.1.1 - Preparing to add TypeVars
+------------------------------------
+
+Devel environment only.
 
 - tests working with grscheller.circular-array >= 3.0.0, \<3.2
 
   - lots of mypy complaints
   - first version using TypeVars will be 0.15.0.0
 
-Version 0.14.0 - PyPI release date 2024-03-09
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.14.0 - 2024-03-09
+-------------------
 
 - updated dependency on CircularArray class
 
@@ -204,8 +210,10 @@ Version 0.14.0 - PyPI release date 2024-03-09
 - minor README.md wordsmithing
 - keeping project an Alpha release for now
 
-Version 0.13.3.1 - Preparing for another PyPI release soon
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.13.3.1 - Preparing for another PyPI release soon
+--------------------------------------------------
+
+Devel environment only.
 
 - overhauled docstrings with Markdown markup
 - updated pyproject.py to drop project back to an Alpha release
@@ -225,15 +233,15 @@ Version 0.13.3.1 - Preparing for another PyPI release soon
 
   - use foldL instead
 
-Version 0.13.2 - PyPI release date 2024-02-20
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.13.2 - 2024-02-20
+-------------------
 
 Forgot to update pyproject.toml dependencies.
 
 - ``dependencies = ["grscheller.circular-array >= 0.1.1, < 1.1"]``
 
-Version 0.13.1 - PyPI Release date 2024-01-31
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.13.1 - 2024-01-31
+-------------------
 
 - FTuple now supports both slicing and indexing
 
@@ -245,8 +253,8 @@ Version 0.13.1 - PyPI Release date 2024-01-31
 
 - forgot to update CHANGELOG for v0.13.0 release
 
-Version 0.13.0 - PyPI Release date 2024-01-30
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.13.0 - 2024-01-30
+-------------------
 
 - BREAKING API CHANGE - CircularArray class removed
 - CircularArray moved to its own PyPI & GitHub repos
@@ -256,8 +264,8 @@ Version 0.13.0 - PyPI Release date 2024-01-30
 
 - Fix various out-of-date docstrings
 
-Version 0.12.3 - PyPI Release date 2024-01-20
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.12.3 - 2024-01-20
+-------------------
 
 - cutting next PyPI release from development (main)
 
@@ -267,34 +275,36 @@ Version 0.12.3 - PyPI Release date 2024-01-20
   - will include ``tests/``
   - made pytest >= 7.4 an optional test dependency
 
-Version 0.12.2 - PyPI Release date 2024-01-17
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.12.2 - 2024-01-17
+-------------------
 
 - fixed Stack reverse() method
 
   - should have caught this when I fixed FStack on last PyPI release
   - more Stack tests
 
-Version 0.12.1 - PyPI Release date 2024-01-15
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.12.1 - 2024-01-15
+-------------------
 
 - BUG FIX: FStack reverse() method
 - added more tests
 
-Version 0.12.0 - PyPI Release date 2024-01-14
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.12.0 - PyPI Release date 2024-01-14
+-------------------------------------
 
 - Considerable future-proofing for first real Beta release
 
-Version 0.11.3.4 - Finally decided to make next PyPI release Beta
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.11.3.4 - Finally decided to make next PyPI release Beta
+---------------------------------------------------------
+
+Devel environment only.
 
 - Package structure mature and not subject to change beyond additions
 - Will endeavor to keep top level & core module names the same
 - API changes will be deprecated before removed
 
-Version 0.11.0 - PyPI Release date 2023-12-20
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.11.0 - 2023-12-20
+-------------------
 
 - A lot of work done on class CLArray
 
@@ -305,8 +315,10 @@ Version 0.11.0 - PyPI Release date 2023-12-20
 
   - mostly for the freedom to rename and restructure the package
 
-Version 0.10.17.0+ (0.11.0-RC2) - 2023-12-17
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.10.17.0+ (0.11.0-RC2) - 2023-12-17
+------------------------------------
+
+Devel environment only.
 
 - Second release candidate - probably will become next PyPI release
 
@@ -329,8 +341,10 @@ Version 0.10.17.0+ (0.11.0-RC2) - 2023-12-17
     - inherit ``FTuple`` from ``Tuple`` (use ``__new__``) for performance boost
     - hold off using ``__slots__`` until I understand them better
 
-Version 0.10.14.2 (0.11.0-RC1) - 2023-12-11
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.10.14.2 (0.11.0-RC1) - 2023-12-11
+-----------------------------------
+
+Devel environment only.
 
 - First release candidate - unlikely this will be the next PyPI release
 
@@ -348,8 +362,10 @@ Version 0.10.14.2 (0.11.0-RC1) - 2023-12-11
       - smaller size & quicker method/attribute lookups
       - big difference when dealing with huge number of data structures
 
-Version 0.10.14.0 - commit date 2023-12-09
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.10.14.0 - 2023-12-09
+----------------------
+
+Devel environment only.
 
 - Finished massive renaming & repackaging effort
 
@@ -376,8 +392,10 @@ Version 0.10.14.0 - commit date 2023-12-09
 
       - ``FTuple``
 
-Version 0.10.11.0 - commit date 2023-11-27
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.10.11.0 - 2023-11-27
+----------------------
+
+Devel environment only.
 
 - Created new datastructures class ``CLArray``
 
@@ -396,8 +414,10 @@ Version 0.10.11.0 - commit date 2023-11-27
 
 - made package more overall "atomic"
 
-Version 0.10.10.0 - commit date 2023-11-26
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.10.10.0 - 2023-11-26
+----------------------
+
+Devel environment only.
 
 - More or less finalized ``FCLArray`` API
 
@@ -409,8 +429,10 @@ Version 0.10.10.0 - commit date 2023-11-26
 
   - considering a simpler ``CLArray`` version
 
-Version 0.10.8.0 - commit date 2023-11-18
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.10.8.0 - 2023-11-18
+---------------------
+
+Devel environment only.
 
 - Bumping requires-python = ">=3.11" in pyproject.toml
 
@@ -421,8 +443,10 @@ Version 0.10.8.0 - commit date 2023-11-18
     - tests pass but are 4X slower
     - LSP almost useless due to more primitive typing module
 
-Version 0.10.7.0 - commit date 2023-11-18
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.10.7.0 - 2023-11-18
+---------------------
+
+Devel environment only.
 
 - Overhauled ``__repr__`` & ``__str__`` methods for all classes
 
@@ -439,8 +463,10 @@ Version 0.10.7.0 - commit date 2023-11-18
 
 - Updated markdown overview documentation
 
-Version 0.10.1.0 - commit date 2023-11-11
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.10.1.0 - 2023-11-11
+---------------------
+
+Devel environment only.
 
 - Removed ``flatMap`` methods from stateful objects
 
@@ -449,8 +475,8 @@ Version 0.10.1.0 - commit date 2023-11-11
 
 - some restructuring so package will scale better in the future
 
-Version 0.9.1 - PyPI release date: 2023-11-09
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.9.1 - 2023-11-09
+------------------
 
 - First Beta release of grscheller.datastructures on PyPI
 - Infrastructure stable
@@ -469,16 +495,20 @@ Version 0.9.1 - PyPI release date: 2023-11-09
   - Monad transformers???
   - Need to use this package in other projects to gain insight
 
-Version 0.8.4.0 - commit date 2023-11-03
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.8.4.0 - 2023-11-03
+--------------------
+
+Devel environment only.
 
 - new data structure ``FTuple`` added
 
   - wrapped tuple with a FP interface
   - initial minimal viable product
 
-Version 0.8.3.0 - commit date 2023-11-02
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.8.3.0 - 2023-11-02
+--------------------
+
+Devel environment only.
 
 - major API breaking change
 
@@ -491,8 +521,10 @@ Version 0.8.3.0 - commit date 2023-11-02
 
 - tests now work
 
-Version 0.8.0.0 - commit date 2023-10-28
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.8.0.0 - 2023-10-28
+--------------------
+
+Devel environment only.
 
 - API breaking changes
 
@@ -503,8 +535,8 @@ Version 0.8.0.0 - commit date 2023-10-28
   - decided to use pdoc3 over sphinx to generate API documentation
   - need to resolve tension of package being Pythonic and Functional
 
-Version 0.7.5.0 - commit date 2023-10-26
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.7.5.0 - 2023-10-26
+--------------------
 
 - moved pytest test suite to root of the repo
 
@@ -513,16 +545,20 @@ Version 0.7.5.0 - commit date 2023-10-26
 
 - instructions to run test suite in ``tests/__init__.py``
 
-Version 0.7.4.0 - PyPI release date: 2023-10-25
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.7.4.0 - 2023-10-25
+--------------------
+
+Devel environment only.
 
 - More mature
 - More Pythonic
 - Major API changes
 - Still tagging it an Alpha release
 
-Version 0.7.0.0 - commit date 2023-10-16
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.7.0.0 - 2023-10-16
+--------------------
+
+Devel environment only.
 
 - updated README.md
 
@@ -531,8 +567,10 @@ Version 0.7.0.0 - commit date 2023-10-16
     - objects "sharing" their data -> FP methods return copies
     - objects "contain" their data -> FP methods mutate object
 
-Version 0.6.9.0 - PyPI release date: 2023-10-09
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.6.9.0 - 2023-10-09
+--------------------
+
+Devel environment only.
 
 - renamed core module to iterlib module
 
@@ -547,8 +585,10 @@ Version 0.6.9.0 - PyPI release date: 2023-10-09
     - removed Stack's ``__getitem__`` method
     - both pop and push/append from end
 
-Version 0.2.2.2 - PyPI release date: 2023-09-04
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.2.2.2 - 2023-09-04
+--------------------
+
+PyPI release.
 
 - decided base package should have no dependencies other than
 
@@ -561,8 +601,10 @@ Version 0.2.2.2 - PyPI release date: 2023-09-04
   - https://packaging.python.org/en/latest/tutorials/packaging-projects/
   - could not do the same for tests/ if end users are to have access
 
-Version 0.2.1.0 - PyPI release date: 2023-09-03
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.2.1.0 - 2023-09-03
+--------------------
+
+PyPI release.
 
 - first Version uploaded to PyPI
 - https://pypi.org/project/grscheller.datastructures/
@@ -587,23 +629,28 @@ Version 0.2.1.0 - PyPI release date: 2023-09-03
 
     - for CI/CD pipelines requiring unit testing
 
-Version 0.2.0.2 - github only release date: 2023-08-29
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.2.0.2 - 2023-08-29
+--------------------
+
+GitHub only release date.
 
 - First version able to be installed from GitHub with pip
-
 - ``$ pip install git+https://github.com/grscheller/datastructures@v0.2.0.2``
 
-Version 0.1.1.0 - commit date: 2023-08-27
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.1.1.0 - 2023-08-27
+--------------------
+
+Devel environment only.
 
 - grscheller.datastructures moved to its own GitHub repo
 - https://github.com/grscheller/datastructures
 
   - GitHub and PyPI user names just a happy coincidence
 
-Version 0.1.0.0 - initial version: 2023-08-27
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.1.0.0 - 2023-08-27
+--------------------
+
+Initial version, devel environment only.
 
 - Package implementing data structures which do not throw exceptions
 - Did not push to PyPI until version 0.2.1.0
