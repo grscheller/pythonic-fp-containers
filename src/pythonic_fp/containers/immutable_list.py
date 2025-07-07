@@ -42,8 +42,8 @@ class ImmutableList[D](Hashable):
     - supports both indexing and slicing
     - addition concatenates results, resulting type a Union type
     - both left and right int multiplication supported
-    """
 
+    """
     __slots__ = ('_ds', '_len', '_hash')
     __match_args__ = ('_ds', '_len')
 
@@ -117,6 +117,7 @@ class ImmutableList[D](Hashable):
         - first argument of function ``f`` is for the accumulated value
         
         "raises ValueError: when empty and a start value not given
+
         """
         it = iter(self._ds)
         if start is not None:
@@ -147,6 +148,7 @@ class ImmutableList[D](Hashable):
         - second argument of function ``f`` is for the accumulated value
 
         "raises ValueError: when empty and a start value not given
+
         """
         it = reversed(self._ds)
         if start is not None:
@@ -184,6 +186,7 @@ class ImmutableList[D](Hashable):
 
         Accumulate partial fold results in an ImmutableList with
         an optional starting value.
+
         """
         if s is None:
             return ImmutableList(accumulate(self, f))
@@ -202,6 +205,7 @@ class ImmutableList[D](Hashable):
           - CONCAT: sequentially concatenate iterables one after the other
           - MERGE: round-robin merge iterables until one is exhausted
           - EXHAUST: round-robin merge iterables until all are exhausted
+
         """
         match type:
             case FM.CONCAT:
@@ -218,5 +222,6 @@ def immutable_list[T](*ts: T) -> ImmutableList[TabError]:
     """Function to produce an ``ImmutableList`` from a variable number of arguments.
 
     :param ds: initial values to push onto a new ImmutableList from right to left
+
     """
     return ImmutableList(ts)

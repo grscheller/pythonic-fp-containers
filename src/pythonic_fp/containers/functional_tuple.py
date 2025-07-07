@@ -17,10 +17,12 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator
-from typing import cast, Never, overload
+from typing import cast, Never, overload, TypeVar
 from pythonic_fp.iterables import FM, accumulate, concat, exhaust, merge
 
 __all__ = ['FunctionalTuple', 'functional_tuple']
+
+D = TypeVar('D', covariant=True)
 
 class FunctionalTuple[D](tuple[D, ...]):
     """Functional Tuple suitable for inheritance
@@ -33,7 +35,13 @@ class FunctionalTuple[D](tuple[D, ...]):
       - homogeneous in its data type
       - supports being further inherited from
       - unslotted
+
+    - Since these tuples are homogeneous, their covariance may be quirky
+
     """
+    L = TypeVar('L')
+    R = TypeVar('R')
+    U = TypeVar('U')
 
     def __reversed__(self) -> Iterator[D]:
         for ii in range(len(self) - 1, -1, -1):
@@ -81,6 +89,7 @@ class FunctionalTuple[D](tuple[D, ...]):
         - first argument of function f is for the accumulated value
 
         :raises ValueError: when FunctionalTuple empty and a start value not given
+
         """
         it = iter(self)
         if start is not None:
@@ -109,6 +118,7 @@ class FunctionalTuple[D](tuple[D, ...]):
         - second argument of function f is for the accumulated value
 
         :raises ValueError: when FunctionalTuple empty and a start value not given
+
         """
         it = reversed(self)
         if start is not None:
@@ -147,6 +157,7 @@ class FunctionalTuple[D](tuple[D, ...]):
 
         Accumulate partial fold results in an ``FunctionalTuple`` with an optional
         starting value.
+
         """
         if s is None:
             return FunctionalTuple(accumulate(self, f))
@@ -168,6 +179,7 @@ class FunctionalTuple[D](tuple[D, ...]):
 
         :param ds: values to instantiate FunctionalTuple
         :return: resulting FunctionalTuple
+
         """
         match type:
             case FM.CONCAT:
@@ -185,5 +197,6 @@ def functional_tuple[D](*ds: D):
 
     :param ds: values to instantiate FunctionalTuple
     :return: resulting FunctionalTuple
+
     """
     return FunctionalTuple(ds)
