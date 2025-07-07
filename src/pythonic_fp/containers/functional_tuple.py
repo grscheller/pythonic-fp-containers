@@ -12,44 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Functional Tuple 
-
-Providing a FP interface for tuples. Implemented by inheriting from tuple.
-
-- class `FunctionalTuple`
-  - inherits from tuple, "is-a" implementation
-    - "homogeneous" in its data type
-    - supports being further inherited from
-    - unslotted
-  - function `functional_tuple`
-    - return an InheritedTuple from function's arguments
-
-"""
+"""Pythonic FP - Functional Tuple"""
 
 from __future__ import annotations
 
 from collections.abc import Callable, Iterator
-from typing import cast, Never, overload, TypeVar
+from typing import cast, Never, overload
 from pythonic_fp.iterables import FM, accumulate, concat, exhaust, merge
 
-__all__ = ['FunctionalTuple']
-
-D = TypeVar('D', covariant=True)
-
+__all__ = ['FunctionalTuple', 'functional_tuple']
 
 class FunctionalTuple[D](tuple[D, ...]):
     """Functional Tuple suitable for inheritance
 
-    - supports both indexing and slicing
-    - `FunctionalTuple` addition & `int` multiplication supported
-      - addition concatenates results, resulting type a Union type
+    - Supports both indexing and slicing
+    - FunctionalTuple addition and int multiplication supported
+
+      - addition concatenates results, resulting in a Union type
       - both left and right int multiplication supported
-
+      - homogeneous in its data type
+      - supports being further inherited from
+      - unslotted
     """
-
-    L = TypeVar('L', covariant=True)
-    R = TypeVar('R', covariant=True)
-    U = TypeVar('U', covariant=True)
 
     def __reversed__(self) -> Iterator[D]:
         for ii in range(len(self) - 1, -1, -1):
@@ -93,10 +77,10 @@ class FunctionalTuple[D](tuple[D, ...]):
     ) -> L | None:
         """Fold Left
 
-        * fold left with an optional starting value
-        * first argument of function `f` is for the accumulated value
-        * throws `ValueError` when `FunctionalTuple` empty and a start value not given
+        - fold left with an optional starting value
+        - first argument of function f is for the accumulated value
 
+        :raises ValueError: when FunctionalTuple empty and a start value not given
         """
         it = iter(self)
         if start is not None:
@@ -121,10 +105,10 @@ class FunctionalTuple[D](tuple[D, ...]):
     ) -> R | None:
         """Fold Right
 
-        * fold right with an optional starting value
-        * second argument of function `f` is for the accumulated value
-        * throws `ValueError` when `FunctionalTuple` empty and a start value not given
+        - fold right with an optional starting value
+        - second argument of function f is for the accumulated value
 
+        :raises ValueError: when FunctionalTuple empty and a start value not given
         """
         it = reversed(self)
         if start is not None:
@@ -141,7 +125,7 @@ class FunctionalTuple[D](tuple[D, ...]):
         return acc
 
     def copy(self) -> FunctionalTuple[D]:
-        """Return a shallow copy of FunctionalTuple in O(1) time & space complexity."""
+        """Return a shallow copy of ``FunctionalTuple`` in O(1) time & space complexity."""
         return self.__class__(self)
 
     def __add__(self, other: object, /) -> tuple[D, ...]:
@@ -161,9 +145,8 @@ class FunctionalTuple[D](tuple[D, ...]):
     ) -> FunctionalTuple[L]:
         """Accumulate partial folds
 
-        Accumulate partial fold results in an FunctionalTuple with an optional starting
-        value.
-
+        Accumulate partial fold results in an ``FunctionalTuple`` with an optional
+        starting value.
         """
         if s is None:
             return FunctionalTuple(accumulate(self, f))
@@ -175,13 +158,16 @@ class FunctionalTuple[D](tuple[D, ...]):
     def bind[U](
         self, f: Callable[[D], FunctionalTuple[U]], type: FM = FM.CONCAT, /
     ) -> FunctionalTuple[U] | Never:
-        """Bind function `f` to the `FunctionalTuple`.
+        """Bind function ``f`` to the ``FunctionalTuple``.
 
-        * FM Enum types
-          * CONCAT: sequentially concatenate iterables one after the other
-          * MERGE: round-robin merge iterables until one is exhausted
-          * EXHAUST: round-robin merge iterables until all are exhausted
+        - FM Enum types
 
+          - CONCAT: sequentially concatenate iterables one after the other
+          - MERGE: round-robin merge iterables until one is exhausted
+          - EXHAUST: round-robin merge iterables until all are exhausted
+
+        :param ds: values to instantiate FunctionalTuple
+        :return: resulting FunctionalTuple
         """
         match type:
             case FM.CONCAT:
@@ -195,4 +181,9 @@ class FunctionalTuple[D](tuple[D, ...]):
 
 
 def functional_tuple[D](*ds: D):
+    """Construct a ``FunctionalTuple`` from arguments.
+
+    :param ds: values to instantiate FunctionalTuple
+    :return: resulting FunctionalTuple
+    """
     return FunctionalTuple(ds)

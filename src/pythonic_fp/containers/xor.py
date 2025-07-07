@@ -36,28 +36,36 @@ RIGHT = Right('RIGHT')
 
 
 class Xor[L, R]:
-    """Either monad - class semantically containing either a left or a right
-    value, but not both.
+    """Either monad, data structure semantically containing either a left
+    or a right value, but not both.
 
-    - implements a left biased Either Monad
-      - `Xor(value: +L, LEFT)` produces a left `Xor`
-      - `Xor(value: +L, RIGHT)` produces a right `Xor`
-    - in a Boolean context
-      - `True` if a left `Xor`
-      - `False` if a right `Xor`
-    - two `Xor` objects compare as equal when
-      - both are left values or both are right values whose values
-        - are the same object
-        - compare as equal
-    - immutable, an `Xor` does not change after being created
-      - immutable semantics, map & bind return new instances
-        - warning: contained value need not be immutable
-        - warning: not hashable if value is mutable
+    Implements a left biased Either Monad.
 
-    ```
+    - `Xor(value: +L, LEFT)` produces a left `Xor`
+    - `Xor(value: +L, RIGHT)` produces a right `Xor`
+
+    In a Boolean context
+
+    - `True` if a left `Xor`
+    - `False` if a right `Xor`
+
+    Two `Xor` objects compare as equal when
+
+    - both are left values or both are right values whose values
+
+      - are the same object
+      - compare as equal
+
+    Immutable, an `Xor` does not change after being created.
+
+    - immutable semantics, map & bind return new instances
+
+      - warning: contained value need not be immutable
+      - warning: not hashable if value is mutable
+
+    :: Note:
        Xor(value: +L, side: Left): Xor[+L, +R] -> left: Xor[+L, +R]
        Xor(value: +R, side: Right): Xor[+L, +R] -> right: Xor[+L, +R]
-    ```
     """
 
     __slots__ = '_value', '_side'
@@ -117,12 +125,14 @@ class Xor[L, R]:
     def get(self) -> L | Never:
         """Get value if a left.
 
-        - if the `Xor` is a "left" Xor
-          - return its value
-        - if the `Xor` contains a right value
-          - raises `ValueError`
-          - best practice is to first check the `Xor` in a boolean context
+        :: warning:
+            Unsafe method ``get``. Will raise ``ValueError`` if ``Xor``
+            is a right. Best practice is to first check the ``Xor`` in
+            a boolean context.
 
+        :return: its value if a Left
+        :rtype: +L
+        :raises ValueError: if not a left
         """
         if self._side == RIGHT:
             msg = 'Xor: get method called on a right valued Xor'
@@ -134,7 +144,6 @@ class Xor[L, R]:
 
         - if `Xor` contains a left value, return it wrapped in a MayBe
         - if `Xor` contains a right value, return MayBe()
-
         """
         if self._side == LEFT:
             return MayBe(cast(L, self._value))
@@ -145,7 +154,6 @@ class Xor[L, R]:
 
         - if `Xor` contains a right value, return it wrapped in a MayBe
         - if `Xor` contains a left value, return MayBe()
-
         """
         if self._side == RIGHT:
             return MayBe(cast(R, self._value))
@@ -164,7 +172,7 @@ class Xor[L, R]:
         return Xor(f(cast(L, self._value)), LEFT)
 
     def bind[U](self, f: Callable[[L], Xor[U, R]]) -> Xor[U, R]:
-        """Flatmap over the left value - propagate right values."""
+        """Flatmap over the left value, propagate right values."""
         if self:
             return f(cast(L, self._value))
         return cast(Xor[U, R], self)
@@ -173,10 +181,14 @@ class Xor[L, R]:
         """Map over if a left value - with fallback upon exception.
 
         - if `Xor` is a left then map `f` over its value
+
           - if `f` successful return a left `Xor[+U, +R]`
           - if `f` unsuccessful return right `Xor[+U, +R]`
+
             - swallows many exceptions `f` may throw at run time
+
         - if `Xor` is a right
+
           - return new `Xor(right=self._right): Xor[+U, +R]`
 
         """
@@ -208,8 +220,10 @@ class Xor[L, R]:
     ) -> Xor[U, R]:
         """Flatmap `Xor` with function `f` with fallback right
 
-        - provide fallback right value if exception thrown.
-        - WARNING: Swallows exceptions
+        :: warning:
+            Swallows exceptions.
+
+        :param fallback_right: fallback value if exception thrown
 
         """
         if self._side == RIGHT:
@@ -240,9 +254,9 @@ class Xor[L, R]:
     def sequence[U, V](sequence_xor_uv: Sequence[Xor[U, V]]) -> Xor[Sequence[U], V]:
         """Sequence an indexable of type `Xor[~U, ~V]`
 
-        - if the iterated `Xor` values are all lefts, then
-          - return an `Xor` of an iterable of the left values
-        - otherwise return a right Xor containing the first right encountered
+        If the iterated `Xor` values are all lefts, then return an `Xor` of
+        an iterable of the left values. Otherwise return a right Xor containing
+        the first right encountered.
 
         """
         list_items: list[U] = []
@@ -259,7 +273,11 @@ class Xor[L, R]:
 
     @staticmethod
     def failable_call[T, V](f: Callable[[T], V], left: T) -> Xor[V, Exception]:
-        """Return Xor wrapped result of a function call that can fail"""
+        """Return Xor wrapped result of a function call that can fail
+
+        :: warning:
+            Swallows exceptions.
+        """
         try:
             xor_return = Xor[V, Exception](f(left), LEFT)
         except (
@@ -278,7 +296,11 @@ class Xor[L, R]:
 
     @staticmethod
     def failable_index[V](v: Sequence[V], ii: int) -> Xor[V, Exception]:
-        """Return an Xor of an indexed value that can fail"""
+        """Return an Xor of an indexed value that can fail.
+
+        :: warning:
+            Swallows exceptions.
+        """
         try:
             xor_return = Xor[V, Exception](v[ii], LEFT)
         except (

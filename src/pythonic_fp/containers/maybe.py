@@ -12,13 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Monadic error handling
-
-Functional data types to use in lieu of exceptions.
-
-- *class* MayBe: maybe (optional) monad
-
-"""
+"""Pythonic FP - Maybe Monad"""
 
 from __future__ import annotations
 
@@ -30,26 +24,24 @@ from pythonic_fp.fptools.singletons import Sentinel
 
 D = TypeVar('D', covariant=True)
 
-
 class MayBe[D]:
-    """Maybe monad - class wrapping a potentially missing value.
+    """Maybe monad, data structure wrapping a potentially missing value.
 
-    - where `MayBe(value)` contains a possible value of type `+D`
-    - `MayBe()` represent a non-existent or missing value of type `+D`
+    - where ``MayBe(value)`` contains a possible value of type ``+D``
+    - ``MayBe()`` represent a non-existent or missing value of type ``+D``
     - immutable semantics
-      - immutable, therefore made covariant
-      - can store any value of any type with one exception
-        - if `+D` is `Sentinel`, storing `Sentinel(MayBe)` results in a MayBe()
-    - WARNING: hashability invalidated if contained value is not hashable
-      - hash function will fail if `MayBe` contains an unhashable value
-    - WARNING: unsafe method `get`
-      - will raise `ValueError` if MayBe empty and an alt return value not given
-      - best practice is to first check the MayBe in a boolean context
 
-    ```
+      - immutable, therefore made covariant
+
+      - can store any item of any type, including ``None``
+      - can store any value of any type with one exception
+
+    :: warning:
+        hashability invalidated if contained value is not hashable
+
+    :: note:
        MayBe(): MayBe[+D] -> mb: Xor[+D]
        MayBe(value: +D) -> mb: Xor[+D]
-    ```
     """
 
     U = TypeVar('U', covariant=True)
@@ -102,9 +94,13 @@ class MayBe[D]:
     def get(self, alt: D | Sentinel = Sentinel('MayBe')) -> D | Never:
         """Return the contained value if it exists, otherwise an alternate value.
 
-        - alternate value must be of type `+D`
-        - raises `ValueError` if an alternate value is not provided but needed
+        :: warning:
+            Unsafe method ``get``. Will raise ``ValueError`` if MayBe empty
+            and an alt return value not given. Best practice is to first check
+            the MayBe in a boolean context.
 
+        :rtype: +D
+        :raises ValueError: when an alternate value is not provided but needed
         """
         _sentinel: Final[Sentinel] = Sentinel('MayBe')
         if self._value is not _sentinel:
@@ -122,16 +118,16 @@ class MayBe[D]:
         return cast(MayBe[U], self)
 
     def bind[U](self, f: Callable[[D], MayBe[U]]) -> MayBe[U]:
-        """Flatmap `MayBe` with function `f`."""
+        """Flatmap ``MayBe`` with function ``f``."""
         return f(cast(D, self._value)) if self else cast(MayBe[U], self)
 
     def map_except[U](self, f: Callable[[D], U]) -> MayBe[U]:
-        """Map function `f` over contents.
+        """Map function ``f`` over contents.
 
-        - if `f` should fail, return a MayBe()
+        If ``f`` should fail, return a ``MayBe()``.
 
-        - WARNING: Swallows exceptions
-
+        :: warning:
+            Swallows exceptions
         """
         if not self:
             return cast(MayBe[U], self)
@@ -152,8 +148,8 @@ class MayBe[D]:
     def bind_except[U](self, f: Callable[[D], MayBe[U]]) -> MayBe[U]:
         """Flatmap `MayBe` with function `f`.
 
-        - WARNING: Swallows exceptions
-
+        :: warning:
+            Swallows exceptions
         """
         try:
             return f(cast(D, self._value)) if self else cast(MayBe[U], self)
@@ -171,11 +167,12 @@ class MayBe[D]:
 
     @staticmethod
     def sequence[U](sequence_mb_u: Sequence[MayBe[U]]) -> MayBe[Sequence[U]]:
-        """Sequence a mutable indexable of type `MayBe[~T]`
+        """Sequence a mutable indexable of type ``MayBe[~U]``
 
-        * if the iterated `MayBe` values are not all empty,
-          * return a `MayBe` of the Sequence subtype of the contained values
-          * otherwise return an empty `MayBe`
+        If the iterated `MayBe` values are not all empty,
+
+        - return a `MayBe` of the Sequence subtype of the contained values
+        - otherwise return an empty `MayBe`
 
         """
         list_items: list[U] = list()
@@ -192,7 +189,7 @@ class MayBe[D]:
 
     @staticmethod
     def failable_call[T, V](f: Callable[[T], V], t: T) -> MayBe[V]:
-        """Return MayBe wrapped result of a function call that can fail"""
+        """Return MayBe wrapped result of a function call that can fail."""
         try:
             mb_return = MayBe(f(t))
         except (
@@ -211,7 +208,7 @@ class MayBe[D]:
 
     @staticmethod
     def failable_index[V](vs: Sequence[V], ii: int) -> MayBe[V]:
-        """Return a MayBe of an indexed value that can fail"""
+        """Return a MayBe of an indexed value that can fail."""
         try:
             mb_return = MayBe(vs[ii])
         except (

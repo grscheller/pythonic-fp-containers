@@ -2,7 +2,7 @@
 
 PyPI project
 [pythonic-fp.containers](https://pypi.org/project/pythonic-fp.containers/)
-implementing a Python package of container like data structures.
+implements a Python package of container like data structures.
 
 | Description | Module |
 |:----------- |:----------- |

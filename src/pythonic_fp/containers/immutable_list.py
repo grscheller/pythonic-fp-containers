@@ -14,7 +14,6 @@
 
 """Pythonic FP - Immutable guaranteed hashable lists
 
-- immutable data structure whose elements are all of the same type
 - hashable if elements are hashable
 - declared covariant in its generic datatype
   - hashability should be enforced by LSP tooling
@@ -33,27 +32,24 @@ from pythonic_fp.iterables import FM, accumulate, concat, exhaust, merge
 __all__ = ['ImmutableList', 'immutable_list']
 
 D = TypeVar('D', covariant=True)
-
+T = TypeVar('T')
 
 class ImmutableList[D](Hashable):
-    """Immutable List like data structures
+    """Immutable List like data structure.
 
-    - immutable "lists" all whose elements are all of the same type `+D`
-    - A `ImmutableList` is covariant in its generic datatype
-      - its method type parameters are also declared covariant
-      - hashability will be enforced by LSP tooling
+    - its method type parameters are also covariant
+    - hashability will be enforced by LSP tooling
     - supports both indexing and slicing
     - addition concatenates results, resulting type a Union type
     - both left and right int multiplication supported
-
     """
 
     __slots__ = ('_ds', '_len', '_hash')
     __match_args__ = ('_ds', '_len')
 
-    L = TypeVar('L', covariant=True)
-    R = TypeVar('R', covariant=True)
-    U = TypeVar('U', covariant=True)
+    L = TypeVar('L')
+    R = TypeVar('R')
+    U = TypeVar('U')
 
     def __init__(self, *dss: Iterable[D]) -> None:
         if (size := len(dss)) > 1:
@@ -118,9 +114,9 @@ class ImmutableList[D](Hashable):
         """Fold Left
 
         - fold left with an optional starting value
-        - first argument of function `f` is for the accumulated value
-        - raises `ValueError` when `ImmutableList` empty and a start value not given
-
+        - first argument of function ``f`` is for the accumulated value
+        
+        "raises ValueError: when empty and a start value not given
         """
         it = iter(self._ds)
         if start is not None:
@@ -148,9 +144,9 @@ class ImmutableList[D](Hashable):
         """Fold Right
 
         - fold right with an optional starting value
-        - second argument of function `f` is for the accumulated value
-        - raises `ValueError` when `ImmutableList` empty and a start value not given
+        - second argument of function ``f`` is for the accumulated value
 
+        "raises ValueError: when empty and a start value not given
         """
         it = reversed(self._ds)
         if start is not None:
@@ -186,9 +182,8 @@ class ImmutableList[D](Hashable):
     ) -> ImmutableList[L]:
         """Accumulate partial folds
 
-        Accumulate partial fold results in an ImmutableList with an optional
-        starting value.
-
+        Accumulate partial fold results in an ImmutableList with
+        an optional starting value.
         """
         if s is None:
             return ImmutableList(accumulate(self, f))
@@ -202,11 +197,11 @@ class ImmutableList[D](Hashable):
     ) -> ImmutableList[U] | Never:
         """Bind function `f` to the `ImmutableList`.
 
-        * FM Enum types
-          * CONCAT: sequentially concatenate iterables one after the other
-          * MERGE: round-robin merge iterables until one is exhausted
-          * EXHAUST: round-robin merge iterables until all are exhausted
+        - FM Enum types
 
+          - CONCAT: sequentially concatenate iterables one after the other
+          - MERGE: round-robin merge iterables until one is exhausted
+          - EXHAUST: round-robin merge iterables until all are exhausted
         """
         match type:
             case FM.CONCAT:
@@ -219,5 +214,9 @@ class ImmutableList[D](Hashable):
         raise ValueError(f'ImmutableList: Unknown FM type: {type}')
 
 
-def immutable_list[D](*ds: D) -> ImmutableList[D]:
-    return ImmutableList(ds)
+def immutable_list[T](*ts: T) -> ImmutableList[TabError]:
+    """Function to produce an ``ImmutableList`` from a variable number of arguments.
+
+    :param ds: initial values to push onto a new ImmutableList from right to left
+    """
+    return ImmutableList(ts)

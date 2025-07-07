@@ -12,18 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Stateful container holding at most one item of a given type.
-
-- where `Box(item)` contains at most one item of a generic type
-- `Box()` semantically represents an empty container
-    - can store any item of any type, including `None`
-      - with one exception, storing `Sentinel('Box')` results in a `Box()`
-- mutable methods can throw `ValueError`
-    - `Box().get()` will throw `ValueError` 
-- use functional methods `map` and `bind` to create boxes of other types
-- boxes are iterable
-
-"""
+"""Stateful container holds at most one item of a given type."""
 
 from __future__ import annotations
 
@@ -33,23 +22,17 @@ from collections.abc import Callable, Iterator
 from typing import cast, Final, Never, overload, TypeVar
 from pythonic_fp.fptools.singletons import Sentinel
 
-
 D = TypeVar('D')
 
 _sentinel: Final[Sentinel] = Sentinel('Box')
 
-
 class Box[D]:
     """Container holding at most one item of a given type
 
-    - where `Box(item)` contains at most one item of type `~D`
-    - `Box()` creates an empty container
-      - can store any item of any type, including `None`
-        - with one exception, storing `Sentinel('Box')` results in a `Box()`
-    - mutable methods can throw `ValueError`
-      - `Box().get()` will throw `ValueError` 
-    - use functional methods `map` and `bind` to create boxes of other types
+    - where ``Box(item)`` contains at most one item of type ``~D``
 
+      - ``Box()`` creates an empty container
+      - can store any item of any type, including ``None``
     """
 
     __slots__ = ('_item',)
@@ -63,6 +46,11 @@ class Box[D]:
     def __init__(self, value: D) -> None: ...
 
     def __init__(self, value: D | Sentinel = Sentinel('Box')) -> None:
+        """Initialize Box with an "optional" initial value.
+
+           :param value: "optional" initial value
+           :type value: ~D
+        """
         self._item: D | Sentinel = value
 
     def __bool__(self) -> bool:
@@ -100,9 +88,8 @@ class Box[D]:
     def get(self, alt: D | Sentinel = Sentinel('Box')) -> D | Never:
         """Return the contained value if it exists, otherwise an alternate value.
 
-        - alternate value must be of type `~D`
-        - raises `ValueError` if an alternate value is not provided but needed
-
+        :rtype: ~D 
+        :raises ValueError: when an alternate value is not provided but needed
         """
         if self._item is not _sentinel:
             return cast(D, self._item)
@@ -114,8 +101,8 @@ class Box[D]:
     def pop(self) -> D | Never:
         """Pop the value if Box is not empty.
 
-        - raises `ValueError` if box is empty
-
+        :rtype: ~D
+        :raises ValueError: if box is empty
         """
         if self._item is _sentinel:
             msg = 'Box: Trying to pop an item from an empty Box'
@@ -127,8 +114,7 @@ class Box[D]:
     def push(self, item: D) -> None | Never:
         """Push an item in an empty Box.
 
-        - raises `ValueError` if box is not empty
-
+        :raises ValueError: if box is not empty
         """
         if self._item is Sentinel('Box'):
             self._item = item
@@ -142,6 +128,11 @@ class Box[D]:
         self._item = item
 
     def exchange(self, new_item: D) -> D | Never:
+        """Exchange an item with what is in the Box.
+
+        :rtype: ~D
+        :raises ValueError: if box is empty
+        """
         if self._item is _sentinel:
             msg = 'Box: Trying to exchange items using an empty Box'
             raise ValueError(msg)
@@ -150,13 +141,19 @@ class Box[D]:
         return popped
 
     def map[T](self, f: Callable[[D], T]) -> Box[T]:
-        """Map function `f` over contents. Return new instance."""
+        """Map function ``f`` over contents.
+
+        :return: a new instance
+        """
         if self._item is Sentinel('Box'):
             return Box()
         return Box(f(cast(D, self._item)))
 
     def bind[T](self, f: Callable[[D], Box[T]]) -> Box[T]:
-        """Flatmap `Box` with function `f`. Return new instance."""
+        """Flatmap ``Box`` with function ``f``.
+
+        :return: a new instance
+        """
         if self._item is _sentinel:
             return Box()
         return f(cast(D, self._item))

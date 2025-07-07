@@ -12,25 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""### Developer Tools - Container-like data structures
-
-- *module* `pythonic_fp.containers`: Container-like data structures
-  - *module* `box`: stateful container holding at most one object
-  - *module* `functional_tuple`: directly inherited from the `tuple` builtin 
-    - gives `tuple` FP interface
-    - designed to be further inherited from
-  - *module* `immutable_list`: 
-    - hashable
-      - hashability will be enforced at runtime
-        - should also be enforced with typing tooling (not yet fully tested)
-  - *module* `maybe`: implements the "maybe" (also called "optional") monad
-    - class representing a possibly missing value
-  - *module* `xor`: implements a left biased "either" monad
-    - class representing either a "left" or "right" value, but not both
-      - these values can be the same or different types
-      - the "left" value is taken to be the "happy path"
-
-"""
+"""Developer Tools - Container-like data structures"""
 
 __author__ = 'Geoffrey R. Scheller'
 __copyright__ = 'Copyright (c) 2023-2025 Geoffrey R. Scheller'
