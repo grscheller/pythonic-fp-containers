@@ -1,11 +1,10 @@
-*********
 CHANGELOG
-*********
+=========
 
 PyPI pythonic-fp.containers project.
 
 Semantic Versioning
-===================
+-------------------
 
 Strict 3 digit semantic versioning adopted 2025-05-19.
 
@@ -13,18 +12,20 @@ Strict 3 digit semantic versioning adopted 2025-05-19.
 - **MINOR** version incremented for backward compatible added functionality
 - **PATCH** version incremented for backward compatible bug fixes
 
+See `Semantic Versioning 2.0.0 <https://semver.org>`_.
+
 Releases and Important Milestones
-=================================
+---------------------------------
 
 2.0.0 - TBD
------------
+~~~~~~~~~~~
 
 First PyPI release as pythonic-fp.containers
 
 - switched from pdoc to Sphinx for docstring documentation generation.
 
 1.0.0 - 2025-05-22
-------------------
+~~~~~~~~~~~~~~~~~~
 
 First PyPI release as dtools.containers
 
@@ -35,14 +36,14 @@ First PyPI release as dtools.containers
 - xor.py -> implements a left biased either monad from FP
 
 0.27.1 - 2025-04-22
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - replaced camelCaseNames method names with snake_case_names
 - docstring changes
 - pyproject.toml standardization
 
 0.27.0 - 2025-04-07
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - first PyPI release as dtools.tuples
 
@@ -54,7 +55,7 @@ First PyPI release as dtools.containers
 - typing improvements
 
 0.25.1 - 2025-01-16
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - Fixed pdoc issues with new typing notation
 
@@ -62,17 +63,17 @@ First PyPI release as dtools.containers
   - had to add TypeVars
 
 0.25.0 - 2025-01-17
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - First release under dtools.datastructures name
 
 0.24.0 - 2024-11-18
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - Changed flatMap to bind thru out project
 
 0.23.1 - 2024-11-18
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - Fixed bug with datastructures.tuple module
 
@@ -87,14 +88,14 @@ First PyPI release as dtools.containers
   - ``FT[D](*ds: D) -> ftuple[D]``
 
 0.22.1 - 2024-10-20
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Removed docs from repo. Documentation for all grscheller namespace
 projects is now maintained
 here: https://grscheller.github.io/grscheller-pypi-namespace-docs/
 
 0.22.0 - 2024-10-18
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - made classes in nodes module less passive with better encapsulation
 - compatible with:
@@ -103,7 +104,7 @@ here: https://grscheller.github.io/grscheller-pypi-namespace-docs/
   - grscheller.circular-array >= 3.6.1 < 3.7
 
 0.21.0 - 2024-08-20
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Got back to a state maintainer is happy with. Many dependencies needed
 updating first.
@@ -112,7 +113,7 @@ updating first.
 - preparing for PyPI 0.21.0 release
 
 0.20.5.0 - 2024-08-17
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 Development environment only. Datastructures coming back together
 
@@ -131,7 +132,7 @@ Development environment only. Datastructures coming back together
   - other Stack variants like SplintEnd??? (shared data/node variants?)
 
 0.20.2.0 - 2024-08-03
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 Development environment only.
 Still preparing for 1.0.0 datastructures release.
@@ -144,7 +145,7 @@ Still preparing for 1.0.0 datastructures release.
   - use `cast` only when you have knowledge beyond what the typechecker can know
 
 0.19.0 - 2024-07-15
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - continuing to prepare for PyPI release 1.0.0
 - cleaned up docstrings for a 1.0.0 release
@@ -152,7 +153,7 @@ Still preparing for 1.0.0 datastructures release.
 - considering requiring grscheller.fp as a dependency
 
 0.18.0.0 - Beginning to prepare for PyPI release 1.0.0
-------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -161,7 +162,7 @@ Devel environment only.
 - TODO: Verify flatMap family yields results in "natural" order
 
 0.17.0.4 - Start of effort to relax None restrictions
------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -173,7 +174,7 @@ Devel environment only.
 - perhaps next PyPI release will be v1.0.0 ???
 
 0.16.0.0 - Preparing to support PEP 695 generics
-------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -191,7 +192,7 @@ Devel environment only.
   - THEREFORE: tests need to be completely overhauled
 
 0.14.1.1 - Preparing to add TypeVars
-------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -201,7 +202,7 @@ Devel environment only.
   - first version using TypeVars will be 0.15.0.0
 
 0.14.0 - 2024-03-09
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - updated dependency on CircularArray class
 
@@ -211,7 +212,7 @@ Devel environment only.
 - keeping project an Alpha release for now
 
 0.13.3.1 - Preparing for another PyPI release soon
---------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -234,14 +235,14 @@ Devel environment only.
   - use foldL instead
 
 0.13.2 - 2024-02-20
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 Forgot to update pyproject.toml dependencies.
 
 - ``dependencies = ["grscheller.circular-array >= 0.1.1, < 1.1"]``
 
 0.13.1 - 2024-01-31
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - FTuple now supports both slicing and indexing
 
@@ -254,7 +255,7 @@ Forgot to update pyproject.toml dependencies.
 - forgot to update CHANGELOG for v0.13.0 release
 
 0.13.0 - 2024-01-30
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - BREAKING API CHANGE - CircularArray class removed
 - CircularArray moved to its own PyPI & GitHub repos
@@ -265,7 +266,7 @@ Forgot to update pyproject.toml dependencies.
 - Fix various out-of-date docstrings
 
 0.12.3 - 2024-01-20
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - cutting next PyPI release from development (main)
 
@@ -276,7 +277,7 @@ Forgot to update pyproject.toml dependencies.
   - made pytest >= 7.4 an optional test dependency
 
 0.12.2 - 2024-01-17
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - fixed Stack reverse() method
 
@@ -284,18 +285,18 @@ Forgot to update pyproject.toml dependencies.
   - more Stack tests
 
 0.12.1 - 2024-01-15
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - BUG FIX: FStack reverse() method
 - added more tests
 
 0.12.0 - PyPI Release date 2024-01-14
--------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Considerable future-proofing for first real Beta release
 
 0.11.3.4 - Finally decided to make next PyPI release Beta
----------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -304,7 +305,7 @@ Devel environment only.
 - API changes will be deprecated before removed
 
 0.11.0 - 2023-12-20
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 - A lot of work done on class CLArray
 
@@ -316,7 +317,7 @@ Devel environment only.
   - mostly for the freedom to rename and restructure the package
 
 0.10.17.0+ (0.11.0-RC2) - 2023-12-17
-------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -342,7 +343,7 @@ Devel environment only.
     - hold off using ``__slots__`` until I understand them better
 
 0.10.14.2 (0.11.0-RC1) - 2023-12-11
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -363,7 +364,7 @@ Devel environment only.
       - big difference when dealing with huge number of data structures
 
 0.10.14.0 - 2023-12-09
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -393,7 +394,7 @@ Devel environment only.
       - ``FTuple``
 
 0.10.11.0 - 2023-11-27
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -415,7 +416,7 @@ Devel environment only.
 - made package more overall "atomic"
 
 0.10.10.0 - 2023-11-26
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -430,7 +431,7 @@ Devel environment only.
   - considering a simpler ``CLArray`` version
 
 0.10.8.0 - 2023-11-18
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -444,7 +445,7 @@ Devel environment only.
     - LSP almost useless due to more primitive typing module
 
 0.10.7.0 - 2023-11-18
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -464,7 +465,7 @@ Devel environment only.
 - Updated markdown overview documentation
 
 0.10.1.0 - 2023-11-11
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -476,7 +477,7 @@ Devel environment only.
 - some restructuring so package will scale better in the future
 
 0.9.1 - 2023-11-09
-------------------
+~~~~~~~~~~~~~~~~~~
 
 - First Beta release of grscheller.datastructures on PyPI
 - Infrastructure stable
@@ -496,7 +497,7 @@ Devel environment only.
   - Need to use this package in other projects to gain insight
 
 0.8.4.0 - 2023-11-03
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -506,7 +507,7 @@ Devel environment only.
   - initial minimal viable product
 
 0.8.3.0 - 2023-11-02
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -522,7 +523,7 @@ Devel environment only.
 - tests now work
 
 0.8.0.0 - 2023-10-28
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -536,7 +537,7 @@ Devel environment only.
   - need to resolve tension of package being Pythonic and Functional
 
 0.7.5.0 - 2023-10-26
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 - moved pytest test suite to root of the repo
 
@@ -546,7 +547,7 @@ Devel environment only.
 - instructions to run test suite in ``tests/__init__.py``
 
 0.7.4.0 - 2023-10-25
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -556,7 +557,7 @@ Devel environment only.
 - Still tagging it an Alpha release
 
 0.7.0.0 - 2023-10-16
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -568,7 +569,7 @@ Devel environment only.
     - objects "contain" their data -> FP methods mutate object
 
 0.6.9.0 - 2023-10-09
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -586,7 +587,7 @@ Devel environment only.
     - both pop and push/append from end
 
 0.2.2.2 - 2023-09-04
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 PyPI release.
 
@@ -602,7 +603,7 @@ PyPI release.
   - could not do the same for tests/ if end users are to have access
 
 0.2.1.0 - 2023-09-03
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 PyPI release.
 
@@ -630,7 +631,7 @@ PyPI release.
     - for CI/CD pipelines requiring unit testing
 
 0.2.0.2 - 2023-08-29
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 GitHub only release date.
 
@@ -638,7 +639,7 @@ GitHub only release date.
 - ``$ pip install git+https://github.com/grscheller/datastructures@v0.2.0.2``
 
 0.1.1.0 - 2023-08-27
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Devel environment only.
 
@@ -648,7 +649,7 @@ Devel environment only.
   - GitHub and PyPI user names just a happy coincidence
 
 0.1.0.0 - 2023-08-27
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Initial version, devel environment only.
 
