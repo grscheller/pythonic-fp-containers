@@ -29,7 +29,7 @@ _sentinel: Final[Sentinel] = Sentinel('Box')
 class Box[D]:
     """Container holding at most one item of a given type
 
-    - where ``Box(item)`` contains at most one item of type ``~D``
+    - where ``Box(item)`` contains at most one item of type ``D``
 
       - ``Box()`` creates an empty container
       - can store any item of any type, including ``None``
@@ -49,7 +49,7 @@ class Box[D]:
         """Initialize Box with an "optional" initial value.
 
            :param value: "optional" initial value
-           :type value: ~D
+           :type value: D
         """
         self._item: D | Sentinel = value
 
@@ -88,7 +88,7 @@ class Box[D]:
     def get(self, alt: D | Sentinel = Sentinel('Box')) -> D | Never:
         """Return the contained value if it exists, otherwise an alternate value.
 
-        :rtype: ~D 
+        :rtype: D 
         :raises ValueError: when an alternate value is not provided but needed
         """
         if self._item is not _sentinel:
@@ -101,7 +101,7 @@ class Box[D]:
     def pop(self) -> D | Never:
         """Pop the value if Box is not empty.
 
-        :rtype: ~D
+        :rtype: D
         :raises ValueError: if box is empty
         """
         if self._item is _sentinel:
@@ -130,7 +130,7 @@ class Box[D]:
     def exchange(self, new_item: D) -> D | Never:
         """Exchange an item with what is in the Box.
 
-        :rtype: ~D
+        :rtype: D
         :raises ValueError: if box is empty
         """
         if self._item is _sentinel:
