@@ -17,7 +17,7 @@ from pythonic_fp.containers.immutable_list import ImmutableList as IL
 from pythonic_fp.containers.immutable_list import immutable_list as il
 from pythonic_fp.containers.maybe import MayBe as MB
 from pythonic_fp.containers.xor import Xor, RIGHT
-from pythonic_fp.iterables import FM
+from pythonic_fp.iterables import MergeEnum
 
 class TestImmutableList:
     """ImmutableList test suite"""
@@ -138,24 +138,24 @@ class TestImmutableList:
             return IL(range(n))
 
         fm = il1.bind(ff)
-        mm = il1.bind(ff, FM.MERGE)
-        em = il1.bind(ff, FM.EXHAUST)
+        mm = il1.bind(ff, MergeEnum.Merge)
+        em = il1.bind(ff, MergeEnum.Exhaust)
 
         assert fm == il(0, 1, 2, 3, 0, 1, 0, 1, 2, 0, 1, 2, 3, 4)
         assert mm == il(0, 0, 0, 0, 1, 1, 1, 1)
         assert em == il(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4)
 
-        fm = il2.bind(ff, FM.CONCAT)
-        mm = il2.bind(ff, FM.MERGE)
-        em = il2.bind(ff, FM.EXHAUST)
+        fm = il2.bind(ff, MergeEnum.Concat)
+        mm = il2.bind(ff, MergeEnum.Merge)
+        em = il2.bind(ff, MergeEnum.Exhaust)
 
         assert fm == il(0, 1, 2, 3, 0, 1, 0, 1, 2)
         assert mm == il()
         assert em == il(0, 0, 0, 1, 1, 1, 2, 2, 3)
 
-        fm = il0.bind(ff, FM.CONCAT)
-        mm = il0.bind(ff, FM.MERGE)
-        em = il0.bind(ff, FM.EXHAUST)
+        fm = il0.bind(ff, MergeEnum.Concat)
+        mm = il0.bind(ff, MergeEnum.Merge)
+        em = il0.bind(ff, MergeEnum.Exhaust)
 
         assert fm == il()
         assert mm == il()

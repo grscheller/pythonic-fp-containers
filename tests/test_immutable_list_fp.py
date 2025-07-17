@@ -19,7 +19,7 @@ from pythonic_fp.containers.immutable_list import ImmutableList as IL
 from pythonic_fp.containers.immutable_list import immutable_list as il
 from pythonic_fp.containers.maybe import MayBe as MB
 from pythonic_fp.splitends.splitend import SplitEnd as SE
-from pythonic_fp.iterables import FM
+from pythonic_fp.iterables import MergeEnum
 
 
 class TestFP:
@@ -85,9 +85,9 @@ class TestFP:
 
         il0 = IL(range(3, 101))
         il1 = il0.map(l1)
-        il2 = il0.bind(l2, FM.CONCAT)
-        il3 = il0.bind(l2, FM.MERGE)
-        il4 = il0.bind(l2, FM.EXHAUST)
+        il2 = il0.bind(l2, MergeEnum.Concat)
+        il3 = il0.bind(l2, MergeEnum.Merge)
+        il4 = il0.bind(l2, MergeEnum.Exhaust)
         assert (il1[0], il1[1], il1[2], il1[-1]) == (7, 9, 11, 201)
         assert (il2[0], il2[1]) == (2, 5)
         assert (il2[2], il2[3], il2[4]) == (2, 5, 9)

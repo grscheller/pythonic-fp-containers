@@ -18,7 +18,7 @@ from pythonic_fp.containers.functional_tuple import FunctionalTuple as FT
 from pythonic_fp.containers.functional_tuple import functional_tuple as ft
 from pythonic_fp.containers.maybe import MayBe as MB
 from pythonic_fp.containers.xor import Xor, RIGHT
-from pythonic_fp.iterables import FM
+from pythonic_fp.iterables import MergeEnum
 
 class TestFunctionalTuple:
     """FunctionalTuple test suite"""
@@ -149,24 +149,24 @@ class TestFunctionalTuple:
             return FT(range(n))
 
         fm = ft1.bind(ff)
-        mm = ft1.bind(ff, FM.MERGE)
-        em = ft1.bind(ff, FM.EXHAUST)
+        mm = ft1.bind(ff, MergeEnum.Merge)
+        em = ft1.bind(ff, MergeEnum.Exhaust)
 
         assert fm == ft(0, 1, 2, 3, 0, 1, 0, 1, 2, 0, 1, 2, 3, 4)
         assert mm == ft(0, 0, 0, 0, 1, 1, 1, 1)
         assert em == ft(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4)
 
-        fm = ft2.bind(ff, FM.CONCAT)
-        mm = ft2.bind(ff, FM.MERGE)
-        em = ft2.bind(ff, FM.EXHAUST)
+        fm = ft2.bind(ff, MergeEnum.Concat)
+        mm = ft2.bind(ff, MergeEnum.Merge)
+        em = ft2.bind(ff, MergeEnum.Exhaust)
 
         assert fm == ft(0, 1, 2, 3, 0, 1, 0, 1, 2)
         assert mm == ft()
         assert em == ft(0, 0, 0, 1, 1, 1, 2, 2, 3)
 
-        fm = ft0.bind(ff, FM.CONCAT)
-        mm = ft0.bind(ff, FM.MERGE)
-        em = ft0.bind(ff, FM.EXHAUST)
+        fm = ft0.bind(ff, MergeEnum.Concat)
+        mm = ft0.bind(ff, MergeEnum.Merge)
+        em = ft0.bind(ff, MergeEnum.Exhaust)
 
         assert fm == FT()
         assert mm == FT()

@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterator
 from typing import cast, Never, overload, TypeVar
-from pythonic_fp.iterables import FM, accumulate, concat, exhaust, merge
+from pythonic_fp.iterables import accumulate, blend, concat, MergeEnum
 
 __all__ = ['FunctionalTuple', 'functional_tuple']
 
@@ -167,29 +167,24 @@ class FunctionalTuple[D](tuple[D, ...]):
         return FunctionalTuple(map(f, self))
 
     def bind[U](
-        self, f: Callable[[D], FunctionalTuple[U]], type: FM = FM.CONCAT, /
-    ) -> FunctionalTuple[U] | Never:
+            self, f: Callable[[D], FunctionalTuple[U]],
+            merge_enum: MergeEnum = MergeEnum.Concat,
+            yield_partials: bool = False,
+        ) -> FunctionalTuple[U] | Never:
         """Bind function ``f`` to the ``FunctionalTuple``.
-
-        - FM Enum types
-
-          - CONCAT: sequentially concatenate iterables one after the other
-          - MERGE: round-robin merge iterables until one is exhausted
-          - EXHAUST: round-robin merge iterables until all are exhausted
 
         :param ds: values to instantiate FunctionalTuple
         :return: resulting FunctionalTuple
+        :raises ValueError: if given unknown merge_type
 
         """
-        match type:
-            case FM.CONCAT:
-                return FunctionalTuple(concat(*map(f, self)))
-            case FM.MERGE:
-                return FunctionalTuple(merge(*map(f, self)))
-            case FM.EXHAUST:
-                return FunctionalTuple(exhaust(*map(f, self)))
-
-        raise ValueError('Unknown FM type')
+        return FunctionalTuple(
+            blend(
+                *map(f, self),
+                merge_enum=merge_enum,
+                yield_partials=yield_partials
+            )
+        )
 
 
 def functional_tuple[D](*ds: D):
