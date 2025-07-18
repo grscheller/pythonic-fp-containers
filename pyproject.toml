@@ -1,6 +1,6 @@
 [project]
 name = "pythonic-fp.containers"
-version = "2.0.1"
+version = "2.1.0"
 readme = "README.md"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
@@ -17,7 +17,7 @@ classifiers = [
 ]
 dependencies = [
   "pythonic-fp.fptools >=3.0.0",
-  "pythonic-fp.iterables >=3.0.0",
+  "pythonic-fp.iterables >=5.0.0",
 ]
 dynamic = ["description"]
 
