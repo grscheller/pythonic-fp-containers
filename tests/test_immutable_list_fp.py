@@ -33,7 +33,7 @@ class TestFP:
             return x * y
 
         def push_se[S](se: SE[S], d: S) -> SE[S]:
-            se.push(d)
+            se.extend(d)
             return se
 
         il0: IL[int] = il()
@@ -63,7 +63,7 @@ class TestFP:
         assert se5.fold(mult2) == 120
         assert se5.fold(mult2, 10) == 1200
         se_temp = se5.copy()
-        se_temp.pop()
+        se_temp.snip()
         se5_rev = se_temp.fold(push_se, SE(se5.peak()))
         assert se5_rev == SE(5, 4, 3, 2, 1)
         assert se5.fold(add2) == 15
