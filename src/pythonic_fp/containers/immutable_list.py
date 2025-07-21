@@ -18,8 +18,8 @@
 - declared covariant in its generic datatype
   - hashability should be enforced by LSP tooling
   - hashability will be enforced at runtime
-  - ImmutableList addition supported via concatenation
-  - ImmutableList integer multiplication supported
+  - IList addition supported via concatenation
+  - IList integer multiplication supported
 
 """
 
@@ -27,14 +27,15 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Iterator, Hashable
 from typing import cast, Never, overload, TypeVar
-from pythonic_fp.iterables import accumulate, blend, concat, MergeEnum
+from pythonic_fp.iterables.merging import blend, concat, MergeEnum
+from pythonic_fp.iterables.folding import accumulate
 
-__all__ = ['ImmutableList', 'immutable_list']
+__all__ = ['IList']
 
 D = TypeVar('D', covariant=True)
 T = TypeVar('T')
 
-class ImmutableList[D](Hashable):
+class IList[D](Hashable):
     """Immutable List like data structure.
 
     - its method type parameters are also covariant
@@ -53,7 +54,7 @@ class ImmutableList[D](Hashable):
 
     def __init__(self, *dss: Iterable[D]) -> None:
         if (size := len(dss)) > 1:
-            msg = f'ImmutableList expects at most 1 iterable argument, got {size}'
+            msg = f'IList expects at most 1 iterable argument, got {size}'
             raise ValueError(msg)
         else:
             self._ds: tuple[D, ...] = tuple(dss[0]) if size == 1 else tuple()
@@ -61,7 +62,7 @@ class ImmutableList[D](Hashable):
             try:
                 self._hash = hash((self._len, 42) + self._ds)
             except TypeError as exc:
-                msg = f'ImmutableList: {exc}'
+                msg = f'IList: {exc}'
                 raise TypeError(msg)
 
     def __hash__(self) -> int:
@@ -86,7 +87,7 @@ class ImmutableList[D](Hashable):
         return '((' + ', '.join(map(repr, self)) + '))'
 
     def __eq__(self, other: object, /) -> bool:
-        if not isinstance(other, ImmutableList):
+        if not isinstance(other, IList):
             return NotImplemented  # magic object
         if self._len != other._len:
             return False
@@ -97,11 +98,11 @@ class ImmutableList[D](Hashable):
     @overload
     def __getitem__(self, idx: int, /) -> D: ...
     @overload
-    def __getitem__(self, idx: slice, /) -> ImmutableList[D]: ...
+    def __getitem__(self, idx: slice, /) -> IList[D]: ...
 
-    def __getitem__(self, idx: slice | int, /) -> ImmutableList[D] | D:
+    def __getitem__(self, idx: slice | int, /) -> IList[D] | D:
         if isinstance(idx, slice):
-            return ImmutableList(self._ds[idx])
+            return IList(self._ds[idx])
         return self._ds[idx]
 
     def foldl[L](
@@ -126,9 +127,9 @@ class ImmutableList[D](Hashable):
             acc = cast(L, next(it))  # L_co = D_co in this case
         else:
             if default is None:
-                msg0 = 'ImmutableList: foldl method requires '
+                msg0 = 'IList: foldl method requires '
                 msg1 = 'either start or default to be defined for '
-                msg2 = 'an empty ImmutableList'
+                msg2 = 'an empty IList'
                 raise ValueError(msg0 + msg1 + msg2)
             acc = default
         for v in it:
@@ -157,70 +158,61 @@ class ImmutableList[D](Hashable):
             acc = cast(R, next(it))
         else:
             if default is None:
-                msg0 = 'ImmutableList: foldr method requires '
+                msg0 = 'IList: foldr method requires '
                 msg1 = 'either start or default to be defined for '
-                msg2 = 'an empty ImmutableList'
+                msg2 = 'an empty IList'
                 raise ValueError(msg0 + msg1 + msg2)
             acc = default
         for v in it:
             acc = f(v, acc)
         return acc
 
-    def __add__(self, other: ImmutableList[D], /) -> ImmutableList[D]:
-        if not isinstance(other, ImmutableList):
-            msg = 'ImmutableList being added to something not a ImmutableList'
+    def __add__(self, other: IList[D], /) -> IList[D]:
+        if not isinstance(other, IList):
+            msg = 'IList being added to something not a IList'
             raise ValueError(msg)
 
-        return ImmutableList(concat(self, other))
+        return IList(concat(self, other))
 
-    def __mul__(self, num: int, /) -> ImmutableList[D]:
-        return ImmutableList(self._ds.__mul__(num if num > 0 else 0))
+    def __mul__(self, num: int, /) -> IList[D]:
+        return IList(self._ds.__mul__(num if num > 0 else 0))
 
-    def __rmul__(self, num: int, /) -> ImmutableList[D]:
-        return ImmutableList(self._ds.__mul__(num if num > 0 else 0))
+    def __rmul__(self, num: int, /) -> IList[D]:
+        return IList(self._ds.__mul__(num if num > 0 else 0))
 
     def accummulate[L](
         self, f: Callable[[L, D], L], s: L | None = None, /
-    ) -> ImmutableList[L]:
+    ) -> IList[L]:
         """Accumulate partial folds
 
-        Accumulate partial fold results in an ImmutableList with
+        Accumulate partial fold results in an IList with
         an optional starting value.
 
         """
         if s is None:
-            return ImmutableList(accumulate(self, f))
-        return ImmutableList(accumulate(self, f, s))
+            return IList(accumulate(self, f))
+        return IList(accumulate(self, f, s))
 
-    def map[U](self, f: Callable[[D], U], /) -> ImmutableList[U]:
-        return ImmutableList(map(f, self))
+    def map[U](self, f: Callable[[D], U], /) -> IList[U]:
+        return IList(map(f, self))
 
     def bind[U](
             self,
-            f: Callable[[D], ImmutableList[U]],
+            f: Callable[[D], IList[U]],
             merge_enum: MergeEnum = MergeEnum.Concat,
             yield_partials: bool = False,
-        ) -> ImmutableList[U] | Never:
-        """Bind function `f` to the `ImmutableList`.
+        ) -> IList[U] | Never:
+        """Bind function `f` to the `IList`.
 
-        :param ds: values to instantiate ImmutableList
-        :return: resulting ImmutableList
+        :param ds: values to instantiate IList
+        :return: resulting IList
         :raises ValueError: if given unknown merge_type
 
         """
-        return ImmutableList(
+        return IList(
             blend(
                 *map(f, self),
                 merge_enum=merge_enum,
                 yield_partials=yield_partials
             )
         )
-
-
-def immutable_list[T](*ts: T) -> ImmutableList[TabError]:
-    """Function to produce an ``ImmutableList`` from a variable number of arguments.
-
-    :param ds: initial values to push onto a new ImmutableList from right to left
-
-    """
-    return ImmutableList(ts)

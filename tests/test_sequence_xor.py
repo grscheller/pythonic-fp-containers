@@ -15,9 +15,8 @@
 from __future__ import annotations
 
 from typing import Final
-from pythonic_fp.containers.functional_tuple import FunctionalTuple as FT
-from pythonic_fp.containers.functional_tuple import functional_tuple as ft
-from pythonic_fp.queues.de import DEQueue as DQ, de_queue as dq
+from pythonic_fp.containers.functional_tuple import FTuple
+from pythonic_fp.queues.fifo import FIFOQueue
 from pythonic_fp.containers.xor import Xor, LEFT, RIGHT
 
 
@@ -32,22 +31,23 @@ class Test_Xor_sequence:
         tuple_of_xor_int_str: tuple[Xor[int, str], ...] = tuple(
             map(lambda x: Xor(x, LEFT), range(1, 2501))
         )
-        ftuple_of_xor_int_str: FT[Xor[int, str]] = FT(
+        ftuple_of_xor_int_str: FTuple[Xor[int, str]] = FTuple(
             map(lambda x: Xor(x, LEFT), range(1, 2501))
         )
-        dqueue_of_xor_int_str: DQ[Xor[int, str]] = DQ(
+        fifo_of_xor_int_str: FIFOQueue[Xor[int, str]] = FIFOQueue(
             map(lambda x: Xor(x, LEFT), range(1, 2501))
         )
 
         xor_listInt_str = Xor.sequence(list_of_xor_int_str)
         xor_tupleInt_str = Xor.sequence(tuple_of_xor_int_str)
         xor_ftuple_int_str = Xor.sequence(ftuple_of_xor_int_str)
-        xor_dqueue_int_str = Xor.sequence(dqueue_of_xor_int_str)
+        xor_fifo_int_str = Xor.sequence(fifo_of_xor_int_str)
+
 
         assert xor_listInt_str == Xor(list(range(1, 2501)), LEFT)
         assert xor_tupleInt_str == Xor(tuple(range(1, 2501)), LEFT)
-        assert xor_ftuple_int_str == Xor(FT(range(1, 2501)), LEFT)
-        assert xor_dqueue_int_str == Xor(DQ(range(1, 2501)), LEFT)
+        assert xor_ftuple_int_str == Xor(FTuple(range(1, 2501)), LEFT)
+        assert xor_fifo_int_str == Xor(FIFOQueue(range(1, 2501)), LEFT)
 
     def test_with_a_right(self) -> None:
         """Test with a single right value, use multiple data structures"""
@@ -57,22 +57,22 @@ class Test_Xor_sequence:
         tuple_of_xor_int_str: tuple[Xor[int, str], ...] = (
             Xor(1, LEFT), Xor('2', RIGHT), Xor(3, LEFT), Xor(4, LEFT)
         )
-        ftuple_of_xor_int_str = ft(
-            Xor(1, LEFT), Xor(2, LEFT), Xor('3', RIGHT), Xor(4, LEFT)
+        ftuple_of_xor_int_str = FTuple(
+            (Xor(1, LEFT), Xor(2, LEFT), Xor('3', RIGHT), Xor(4, LEFT),)
         )
-        dqueue_of_xor_int_str = dq(
-            Xor(1, LEFT), Xor(2, LEFT), Xor(3, LEFT), Xor('4', RIGHT)
+        fifo_of_xor_int_str = FIFOQueue(
+            (Xor(1, LEFT), Xor(2, LEFT), Xor(3, LEFT), Xor('4', RIGHT),)
         )
 
         xor_list_int = Xor.sequence(list_of_xor_int_str)
         xor_tuple_int = Xor.sequence(tuple_of_xor_int_str)
         xor_ftuple_int = Xor.sequence(ftuple_of_xor_int_str)
-        xor_dqueue_int = Xor.sequence(dqueue_of_xor_int_str)
+        xor_fifo_int: Xor[FIFOQueue[int], str] = Xor.sequence(fifo_of_xor_int_str)
 
         assert xor_list_int == Xor('1', RIGHT)
         assert xor_tuple_int == Xor('2', RIGHT)
         assert xor_ftuple_int == Xor('3', RIGHT)
-        assert xor_dqueue_int == Xor('4', RIGHT)
+        assert xor_fifo_int == Xor('4', RIGHT)
 
     def test_with_multiple_rights(self) -> None:
         """Test with a multiple right value"""

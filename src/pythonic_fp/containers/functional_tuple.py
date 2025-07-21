@@ -18,17 +18,18 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterator
 from typing import cast, Never, overload, TypeVar
-from pythonic_fp.iterables import accumulate, blend, concat, MergeEnum
+from pythonic_fp.iterables.folding import accumulate
+from pythonic_fp.iterables.merging import blend, concat, MergeEnum
 
-__all__ = ['FunctionalTuple', 'functional_tuple']
+__all__ = ['FTuple']
 
 D = TypeVar('D', covariant=True)
 
-class FunctionalTuple[D](tuple[D, ...]):
+class FTuple[D](tuple[D, ...]):
     """Functional Tuple suitable for inheritance
 
     - Supports both indexing and slicing
-    - FunctionalTuple addition and int multiplication supported
+    - FTuple addition and int multiplication supported
 
       - addition concatenates results, resulting in a Union type
       - both left and right int multiplication supported
@@ -88,7 +89,7 @@ class FunctionalTuple[D](tuple[D, ...]):
         - fold left with an optional starting value
         - first argument of function f is for the accumulated value
 
-        :raises ValueError: when FunctionalTuple empty and a start value not given
+        :raises ValueError: when FTuple empty and a start value not given
 
         """
         it = iter(self)
@@ -98,8 +99,8 @@ class FunctionalTuple[D](tuple[D, ...]):
             acc = cast(L, next(it))
         else:
             if default is None:
-                msg = 'Both start and default cannot be None for an empty FunctionalTuple'
-                raise ValueError('FunctionalTuple.foldl - ' + msg)
+                msg = 'Both start and default cannot be None for an empty FTuple'
+                raise ValueError('FTuple.foldl - ' + msg)
             acc = default
         for v in it:
             acc = f(acc, v)
@@ -117,7 +118,7 @@ class FunctionalTuple[D](tuple[D, ...]):
         - fold right with an optional starting value
         - second argument of function f is for the accumulated value
 
-        :raises ValueError: when FunctionalTuple empty and a start value not given
+        :raises ValueError: when FTuple empty and a start value not given
 
         """
         it = reversed(self)
@@ -127,20 +128,20 @@ class FunctionalTuple[D](tuple[D, ...]):
             acc = cast(R, next(it))
         else:
             if default is None:
-                msg = 'Both start and default cannot be None for an empty FunctionalTuple'
-                raise ValueError('FunctionalTuple.foldR - ' + msg)
+                msg = 'Both start and default cannot be None for an empty FTuple'
+                raise ValueError('FTuple.foldR - ' + msg)
             acc = default
         for v in it:
             acc = f(v, acc)
         return acc
 
-    def copy(self) -> FunctionalTuple[D]:
-        """Return a shallow copy of ``FunctionalTuple`` in O(1) time & space complexity."""
+    def copy(self) -> FTuple[D]:
+        """Return a shallow copy of ``FTuple`` in O(1) time & space complexity."""
         return self.__class__(self)
 
     def __add__(self, other: object, /) -> tuple[D, ...]:
-        if not isinstance(other, FunctionalTuple):
-            msg = 'FunctionalTuple being added to something not an FunctionalTuple'
+        if not isinstance(other, FTuple):
+            msg = 'FTuple being added to something not an FTuple'
             raise ValueError(msg)
         return self.__class__(concat(self, other))
 
@@ -152,46 +153,36 @@ class FunctionalTuple[D](tuple[D, ...]):
 
     def accummulate[L](
         self, f: Callable[[L, D], L], s: L | None = None, /
-    ) -> FunctionalTuple[L]:
+    ) -> FTuple[L]:
         """Accumulate partial folds
 
-        Accumulate partial fold results in an ``FunctionalTuple`` with an optional
+        Accumulate partial fold results in an ``FTuple`` with an optional
         starting value.
 
         """
         if s is None:
-            return FunctionalTuple(accumulate(self, f))
-        return FunctionalTuple(accumulate(self, f, s))
+            return FTuple(accumulate(self, f))
+        return FTuple(accumulate(self, f, s))
 
-    def map[U](self, f: Callable[[D], U], /) -> FunctionalTuple[U]:
-        return FunctionalTuple(map(f, self))
+    def map[U](self, f: Callable[[D], U], /) -> FTuple[U]:
+        return FTuple(map(f, self))
 
     def bind[U](
-            self, f: Callable[[D], FunctionalTuple[U]],
+            self, f: Callable[[D], FTuple[U]],
             merge_enum: MergeEnum = MergeEnum.Concat,
             yield_partials: bool = False,
-        ) -> FunctionalTuple[U] | Never:
-        """Bind function ``f`` to the ``FunctionalTuple``.
+        ) -> FTuple[U] | Never:
+        """Bind function ``f`` to the ``FTuple``.
 
-        :param ds: values to instantiate FunctionalTuple
-        :return: resulting FunctionalTuple
+        :param ds: values to instantiate FTuple
+        :return: resulting FTuple
         :raises ValueError: if given unknown merge_type
 
         """
-        return FunctionalTuple(
+        return FTuple(
             blend(
                 *map(f, self),
                 merge_enum=merge_enum,
                 yield_partials=yield_partials
             )
         )
-
-
-def functional_tuple[D](*ds: D):
-    """Construct a ``FunctionalTuple`` from arguments.
-
-    :param ds: values to instantiate FunctionalTuple
-    :return: resulting FunctionalTuple
-
-    """
-    return FunctionalTuple(ds)

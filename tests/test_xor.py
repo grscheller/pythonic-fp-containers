@@ -15,8 +15,7 @@
 from __future__ import annotations
 
 from typing import Never
-from pythonic_fp.containers.immutable_list import immutable_list as ilist
-from pythonic_fp.containers.maybe import MayBe as MB
+from pythonic_fp.containers.maybe import MayBe
 from pythonic_fp.containers.xor import Xor, LEFT, RIGHT
 
 
@@ -59,13 +58,13 @@ class TestSimole:
 
     def test_equal(self) -> None:
         """some non-systematic tests"""
-        xor41 = Xor[int, str](40 + 1)
-        xor42: Xor[int, str] = Xor(40 + 2)
-        xor43: Xor[int, str] = Xor(40 + 3)
+        xor41 = Xor[int, str](40 + 1, LEFT)
+        xor42: Xor[int, str] = Xor(40 + 2, LEFT)
+        xor43: Xor[int, str] = Xor(40 + 3, LEFT)
         xor_no42: Xor[int, str] = Xor('no 42', RIGHT)
         xor_fortytwo: Xor[str, int] = Xor('forty-two', LEFT)
         xor_str_42: Xor[str, int] = Xor(21 * 2, RIGHT)
-        xor_42tuple: Xor[int, tuple[int, ...]] = Xor(42)
+        xor_42tuple: Xor[int, tuple[int, ...]] = Xor(42, LEFT)
         xor42_tuple: Xor[int, tuple[int, ...]] = Xor((2, 3), side=RIGHT)
 
         assert xor42 == xor42
@@ -83,8 +82,8 @@ class TestSimole:
 
     def test_identity(self) -> None:
         """identity tests"""
-        e1: Xor[int, str] = Xor(42)
-        e2: Xor[int, str] = Xor(42)
+        e1: Xor[int, str] = Xor(42, LEFT)
+        e2: Xor[int, str] = Xor(42, LEFT)
         e3: Xor[int, str] = Xor('The secret is unknown', RIGHT)
         e4: Xor[int, str] = Xor('not 42', RIGHT)
         e5: Xor[int, str] = Xor('also not 42', RIGHT)
@@ -143,16 +142,16 @@ class TestSimole:
 
     def test_MB_Xor(self) -> None:
         """Proving a nothing can be stored in a something"""
-        mb_42 = MB(42)
-        mb_not: MB[int] = MB()
+        mb_42 = MayBe(42)
+        mb_not: MayBe[int] = MayBe()
 
-        left_mb_42: Xor[MB[int], str] = Xor(mb_42, LEFT)
-        left_mb_not: Xor[MB[int], str] = Xor(mb_not, LEFT)
-        assert left_mb_42 == Xor(MB(42), LEFT)
-        assert left_mb_not == Xor(MB(), LEFT)
+        left_mb_42: Xor[MayBe[int], str] = Xor(mb_42, LEFT)
+        left_mb_not: Xor[MayBe[int], str] = Xor(mb_not, LEFT)
+        assert left_mb_42 == Xor(MayBe(42), LEFT)
+        assert left_mb_not == Xor(MayBe(), LEFT)
 
-        phNot1: MB[Xor[MB[int], str]] = MB(Xor(MB[int](), LEFT))
-        phNot2 = MB(Xor[int, str]('', RIGHT))
+        phNot1: MayBe[Xor[MayBe[int], str]] = MayBe(Xor(MayBe[int](), LEFT))
+        phNot2 = MayBe(Xor[int, str]('', RIGHT))
         assert phNot1 != phNot2
 
         none_to_the_left_1: Xor[None, None] = Xor(None, LEFT)
@@ -210,14 +209,14 @@ class TestMapExcept:
         s10 = Xor[int, str](10, LEFT)
         s_foo_m = Xor[int, str]('foo', RIGHT)
 
-        assert s2.get_left() == MB(2)
-        assert s5.get_left() == MB(5)
-        assert s10.get_left() == MB(10)
-        assert s_foo_m.get_left() == MB()
-        assert s2.get_right() == MB()
-        assert s5.get_right() == MB()
-        assert s10.get_right() == MB()
-        assert s_foo_m.get_right() == MB('foo')
+        assert s2.get_left() == MayBe(2)
+        assert s5.get_left() == MayBe(5)
+        assert s10.get_left() == MayBe(10)
+        assert s_foo_m.get_left() == MayBe()
+        assert s2.get_right() == MayBe()
+        assert s5.get_right() == MayBe()
+        assert s10.get_right() == MayBe()
+        assert s_foo_m.get_right() == MayBe('foo')
 
         s2 = s2.map_except(add2ifLT5, 'map_except failed 2')
         s5 = s5.map_except(add2ifLT5, 'map_except failed 5')
@@ -225,15 +224,15 @@ class TestMapExcept:
         s_foo_m = s_foo_m.map_except(add2ifLT5, 'map_except failed foo')
         s_foo_cr = s_foo_m.map_right(lambda s: f'Foo{s} rules!')
 
-        assert s2.get_left() == MB(4)
-        assert s5.get_left() == MB()
-        assert s10.get_left() == MB(10)
-        assert s_foo_m.get_left() == MB()
-        assert s2.get_right() == MB()
-        assert s5.get_right() == MB('map_except failed 5')
-        assert s10.get_right() == MB()
-        assert s_foo_m.get_right() == MB('foo')
-        assert s_foo_cr.get_right() == MB('Foofoo rules!')
+        assert s2.get_left() == MayBe(4)
+        assert s5.get_left() == MayBe()
+        assert s10.get_left() == MayBe(10)
+        assert s_foo_m.get_left() == MayBe()
+        assert s2.get_right() == MayBe()
+        assert s5.get_right() == MayBe('map_except failed 5')
+        assert s10.get_right() == MayBe()
+        assert s_foo_m.get_right() == MayBe('foo')
+        assert s_foo_cr.get_right() == MayBe('Foofoo rules!')
 
         try:
             s2g = s2.get()
@@ -286,14 +285,14 @@ class TestMapExcept:
 
         assert s2g == 2
         assert s10g == 10
-        assert s2gl == MB(2)
-        assert s5gl == MB(5)
-        assert s10gl == MB(10)
-        assert s_bar_gl == MB()
-        assert s2gr == MB()
-        assert s5gr == MB()
-        assert s10gr == MB()
-        assert s_bar_gr == MB('bar')
+        assert s2gl == MayBe(2)
+        assert s5gl == MayBe(5)
+        assert s10gl == MayBe(10)
+        assert s_bar_gl == MayBe()
+        assert s2gr == MayBe()
+        assert s5gr == MayBe()
+        assert s10gr == MayBe()
+        assert s_bar_gr == MayBe('bar')
 
         s2 = s2.map_except(add_1_if_gt_5, 'map_except failed 2')
         s5 = s5.map_except(add_1_if_gt_5, 'map_except failed 5')
@@ -313,14 +312,14 @@ class TestMapExcept:
 
         assert s2g == 2
         assert s10g == 11
-        assert s2gl == MB(2)
-        assert s5gl == MB()
-        assert s10gl == MB(11)
-        assert s_bar_gl == MB()
-        assert s2gr == MB()
-        assert s5gr == MB('map_except failed 5')
-        assert s10gr == MB()
-        assert s_bar_gr == MB('bar')
+        assert s2gl == MayBe(2)
+        assert s5gl == MayBe()
+        assert s10gl == MayBe(11)
+        assert s_bar_gl == MayBe()
+        assert s2gr == MayBe()
+        assert s5gr == MayBe('map_except failed 5')
+        assert s10gr == MayBe()
+        assert s_bar_gr == MayBe('bar')
 
         try:
             s2g = s2.get()
@@ -377,21 +376,6 @@ def lessThan5(x: int) -> Xor[int, str]:
 class TestBind:
     """Test map and map_right together"""
 
-    def test_bind_simple(self) -> None:
-        """Simple bind tests usinf an FTuple"""
-        xor41 = Xor[int, str](41)
-        xor42: Xor[int, str] = Xor(42)
-        xor43: Xor[int, str] = Xor(43)
-
-        ilist_xor_int_str = ilist(xor41, xor42, xor43)
-        ilist_xor_bool_str = ilist_xor_int_str.map(
-            lambda x: x.bind_except(lt42bool, 'bind failed')
-        )
-
-        assert ilist_xor_bool_str[0] == Xor[bool, str](True, LEFT)
-        assert ilist_xor_bool_str[1] == Xor[bool, str]('bind failed', RIGHT)
-        assert ilist_xor_bool_str[2] == Xor[bool, str]('43', RIGHT)
-
     def test_xor_bind(self) -> None:
         left1 = Xor[int, str](1, LEFT)
         left4 = Xor[int, str](4, LEFT)
@@ -409,7 +393,7 @@ class TestBind:
         lt2 = left4.bind(lessThan2)
         lt5 = left4.bind(lessThan5)
         assert lt2 == Xor('4 >= 2', RIGHT)
-        assert lt5 == Xor(4)
+        assert lt5 == Xor(4, LEFT)
 
         lt2 = left7.bind(lessThan2)
         lt5 = left7.bind(lessThan5)
@@ -460,7 +444,7 @@ class TestXorUsecases:
         xor_01 = Xor[int, str](1, LEFT)
 
         assert xor_99.get() == 99
-        assert xor_99.get_right() == MB()
+        assert xor_99.get_right() == MayBe()
         try:
             agent = xor_86.get()
             assert agent == 86
@@ -470,7 +454,7 @@ class TestXorUsecases:
             assert True
         else:
             assert False
-        assert xor_86.get_right() == MB('Max')
+        assert xor_86.get_right() == MayBe('Max')
 
         kaos0: Xor[bool, str] = Xor(True, LEFT)
         kaos1 = xor_99.map(gt42)
