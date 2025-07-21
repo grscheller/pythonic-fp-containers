@@ -1,6 +1,6 @@
 [project]
 name = "pythonic-fp.containers"
-version = "2.1.0"
+version = "3.0.0"
 readme = "README.md"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
@@ -16,8 +16,10 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  "pythonic-fp.fptools >=3.0.0",
+  "pythonic-fp.fptools >=5.0.0",
   "pythonic-fp.iterables >=5.0.0",
+  "pythonic-fp.singltons >=1.0.0",
+  "pythonic-fp.subclassable_boolean >=1.0.0",
 ]
 dynamic = ["description"]
 
