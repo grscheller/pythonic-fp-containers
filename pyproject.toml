@@ -5,7 +5,16 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
 authors = [{ name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" }]
-keywords = ["boxes", "functional_tuple", "immutable_list", "maybe"]
+keywords = [
+  "boxes",
+  "functional_tuple",
+  "immutable_list",
+  "queue",
+  "fifo",
+  "lifo",
+  "dqueue",
+  "dequeue",
+]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Framework :: Pytest",
@@ -16,10 +25,10 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
+  "pythonic-fp.circulararray >= 5.3.0",
   "pythonic-fp.fptools >=5.0.0",
   "pythonic-fp.iterables >=5.0.0",
   "pythonic-fp.singltons >=1.0.0",
-  "pythonic-fp.subclassable_boolean >=1.0.0",
 ]
 dynamic = ["description"]
 

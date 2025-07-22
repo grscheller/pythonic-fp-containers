@@ -22,10 +22,9 @@ This PyPI project is part of of the grscheller
 Documentation
 -------------
 
-Documentation for package
+Documentation for this project is hosted on
 `GitHub Pages
-<https://grscheller.github.io/pythonic-fp/containers/API/development/build/html/releases.html>`_
-hosted on GitHub pages.
+<https://grscheller.github.io/pythonic-fp/containers/API/development/build/html/releases.html>`_.
 
 Copyright and License
 ---------------------

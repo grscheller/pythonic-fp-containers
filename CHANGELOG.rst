@@ -23,7 +23,9 @@ Releases and Important Milestones
 Coordinated entire project pythonic-fp PyPI deployment.
 
 - moved maybe.py and xor.py to fptools, renamed xor.py -> either.py.
+- duplicated pythonic_fp.queues -> pythonic_fp.containers.queues
 
+  - deprecating pythonic-fp.queues
 
 2.0.0 - 2025-07-06
 ~~~~~~~~~~~~~~~~~~
