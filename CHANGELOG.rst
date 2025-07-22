@@ -17,8 +17,16 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-2.0.0 - TBD
+3.0.0 - TBD
 ~~~~~~~~~~~
+
+Coordinated entire project pythonic-fp PyPI deployment.
+
+- moved maybe.py and xor.py to fptools, renamed xor.py -> either.py.
+
+
+2.0.0 - 2025-07-06
+~~~~~~~~~~~~~~~~~~
 
 First PyPI release as pythonic-fp.containers
 
