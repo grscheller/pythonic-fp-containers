@@ -20,7 +20,7 @@ __all__ = ['Box']
 
 from collections.abc import Callable, Iterator
 from typing import cast, Final, Never, overload, TypeVar
-from pythonic_fp.fptools.singletons import Sentinel
+from pythonic_fp.singletons.sentinel import Sentinel
 
 D = TypeVar('D')
 
@@ -33,6 +33,7 @@ class Box[D]:
 
       - ``Box()`` creates an empty container
       - can store any item of any type, including ``None``
+
     """
 
     __slots__ = ('_item',)
