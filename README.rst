@@ -25,7 +25,7 @@ Documentation
 
 Documentation for this project is hosted on
 `GitHub Pages
-<https://grscheller.github.io/pythonic-fp/containers/API/development/build/html/releases.html>`_.
+<https://grscheller.github.io/pythonic-fp/containers/development/build/html>`_.
 
 Copyright and License
 ---------------------
