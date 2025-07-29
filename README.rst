@@ -12,9 +12,10 @@ Python package of container like data structures.
 | Single item box  | *module* ``pythonic_fp.containers.box``              |
 | Functional tuple | *module* ``pythonic_fp.containers.functional_tuple`` |
 | Immutable list   | *module* ``pythonic_fp.containers.immutable_list``   |
-| Maybe monad      | *module* ``pythonic_fp.containers.maybe``            |
-| Either monad     | *module* ``pythonic_fp.containers.xor``              |
 +------------------+------------------------------------------------------+
+
+**DEPRECATION WARNING:** ``pythonic_fp.fptools.box`` as been deprecated.
+Use ``pythonic_fp.box`` instead.
 
 This PyPI project is part of of the grscheller
 `pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.

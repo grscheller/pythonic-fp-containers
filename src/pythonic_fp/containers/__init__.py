@@ -16,15 +16,19 @@
 
 Python package of container like data structures.
 
-+------------------+---------------------------------------------+
-| Description      |               Module                        |
-+==================+=============================================+
-| Single item box  | ``pythonic_fp.containers.box``              |
-+------------------+---------------------------------------------+
-| Functional tuple | ``pythonic_fp.containers.functional_tuple`` |
-+------------------+---------------------------------------------+
-| Immutable list   | ``pythonic_fp.containers.immutable_list``   |
-+------------------+---------------------------------------------+
++------------------+-----------------------------------------------+
+| Description      | Module                                        |
++==================+===============================================+
+| Functional tuple | ``pythonic_fp.containers.functional_tuple``   |
++------------------+-----------------------------------------------+
+| Immutable list   | ``pythonic_fp.containers.immutable_list``     |
++------------------+-----------------------------------------------+
+| Single item box  | ``pythonic_fp.containers.box`` **REMOVED**    |
++------------------+-----------------------------------------------+
+
+.. note::
+
+    Module ``box`` has  been moved to ``pythonic_fp.gadgets.box``.
 
 """
 
