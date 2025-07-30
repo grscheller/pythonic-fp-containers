@@ -15,13 +15,13 @@
 """Three types of queues.
 
 +------------------------------------+-----------+--------------------------+
-| module                             | class     | description              |
+| module                             | Class     | description              |
 +====================================+===========+==========================+
-| pythonic_fp.containers.queues.de   | DEQueue   | Double-Ended queue       |
-+------------------------------------+-----------+--------------------------+
 | pythonic_fp.containers.queues.fifo | FIFOQueue | First-In-First-Out queue |
 +------------------------------------+-----------+--------------------------+
 | pythonic_fp.containers.queues.lifo | LIFOQueue | Last-In-First-Out queue  |
++------------------------------------+-----------+--------------------------+
+| pythonic_fp.containers.queues.de   | DEQueue   | Double-Ended queue       |
 +------------------------------------+-----------+--------------------------+
 
 """

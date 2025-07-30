@@ -16,15 +16,15 @@
 
 Python package of container like data structures.
 
-+------------------+-----------------------------------------------+
-| Description      | Module                                        |
-+==================+===============================================+
-| Functional tuple | ``pythonic_fp.containers.functional_tuple``   |
-+------------------+-----------------------------------------------+
-| Immutable list   | ``pythonic_fp.containers.immutable_list``     |
-+------------------+-----------------------------------------------+
-| Single item box  | ``pythonic_fp.containers.box`` **REMOVED**    |
-+------------------+-----------------------------------------------+
++------------------+--------+----------------------------------------------------+
+| Description      | Class  | Package/Module                                     |
++==================+========+====================================================+
+| Functional tuple | FTuple | module ``pythonic_fp.containers.functional_tuple`` |
++------------------+--------+----------------------------------------------------+
+| Immutable list   | IList  | module ``pythonic_fp.containers.immutable_list``   |
++------------------+--------+----------------------------------------------------+
+| Queues           |        | package ``pythonic_fp.containers.queues``          |
++------------------+--------+----------------------------------------------------+
 
 .. note::
 
