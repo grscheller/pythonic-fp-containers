@@ -27,8 +27,8 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Iterator, Hashable
 from typing import cast, Never, overload, TypeVar
-from pythonic_fp.iterables.merging import blend, concat, MergeEnum
 from pythonic_fp.iterables.folding import accumulate
+from pythonic_fp.iterables.merging import blend, concat, MergeEnum
 
 __all__ = ['IList']
 

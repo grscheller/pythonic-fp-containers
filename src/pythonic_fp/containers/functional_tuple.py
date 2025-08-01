@@ -40,10 +40,6 @@ class FTuple[D](tuple[D, ...]):
     - Since these tuples are homogeneous, their covariance may be quirky
 
     """
-    L = TypeVar('L')
-    R = TypeVar('R')
-    U = TypeVar('U')
-
     def __reversed__(self) -> Iterator[D]:
         for ii in range(len(self) - 1, -1, -1):
             yield (self[ii])
