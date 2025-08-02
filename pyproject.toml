@@ -29,17 +29,17 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  "pythonic-fp.circulararray>= 5.3.0",
-  "pythonic-fp.fptools>=5.0.0",
-  "pythonic-fp.iterables>=5.0.0",
-  "pythonic-fp.singletons>=1.0.0",
+  "pythonic-fp-circulararray>= 5.3.0",
+  "pythonic-fp-fptools>=5.0.0",
+  "pythonic-fp-iterables>=5.0.0",
+  "pythonic-fp-singletons>=1.0.0",
 ]
 dynamic = ["description"]
 
 [project.optional-dependencies]
 test = [
   "pytest>=8.4.1",
-  "pythonic-fp.splitends>=1.0.0",
+  "pythonic-fp-splitends>=1.0.0",
 ]
 
 [project.urls]

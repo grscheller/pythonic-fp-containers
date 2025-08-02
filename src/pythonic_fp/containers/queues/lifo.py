@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from collections.abc import Callable, Iterable, Iterator
 from typing import TypeVar
-
 from pythonic_fp.circulararray.auto import CA
 from pythonic_fp.fptools.function import swap
 from pythonic_fp.fptools.maybe import MayBe

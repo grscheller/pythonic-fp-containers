@@ -88,17 +88,17 @@ class FTuple[D](tuple[D, ...]):
         :raises ValueError: when FTuple empty and a start value not given
 
         """
-        it = iter(self)
+        it_self = iter(self)
         if start is not None:
             acc = start
         elif self:
-            acc = cast(L, next(it))
+            acc = cast(L, next(it_self))
         else:
             if default is None:
                 msg = 'Both start and default cannot be None for an empty FTuple'
                 raise ValueError('FTuple.foldl - ' + msg)
             acc = default
-        for v in it:
+        for v in it_self:
             acc = f(acc, v)
         return acc
 
@@ -117,17 +117,17 @@ class FTuple[D](tuple[D, ...]):
         :raises ValueError: when FTuple empty and a start value not given
 
         """
-        it = reversed(self)
+        it_self = reversed(self)
         if start is not None:
             acc = start
         elif self:
-            acc = cast(R, next(it))
+            acc = cast(R, next(it_self))
         else:
             if default is None:
                 msg = 'Both start and default cannot be None for an empty FTuple'
                 raise ValueError('FTuple.foldR - ' + msg)
             acc = default
-        for v in it:
+        for v in it_self:
             acc = f(v, acc)
         return acc
 
