@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Containers
-
-Python package of container like data structures.
+"""Package of container like data structures.
 
 +------------------+--------+----------------------------------------------------+
 | Description      | Class  | Package/Module                                     |
