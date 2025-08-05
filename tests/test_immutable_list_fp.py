@@ -14,7 +14,6 @@
 
 """Test FP use cases"""
 
-from __future__ import annotations
 from pythonic_fp.containers.immutable_list import IList
 from pythonic_fp.splitends.splitend import SplitEnd as SE
 from pythonic_fp.iterables.merging import MergeEnum

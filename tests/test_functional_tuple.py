@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import annotations
 from pythonic_fp.containers.functional_tuple import FTuple as FT
 from pythonic_fp.iterables.merging import MergeEnum
+
 
 class TestFunctionalTuple:
     """FunctionalTuple test suite"""

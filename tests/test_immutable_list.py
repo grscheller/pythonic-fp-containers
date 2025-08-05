@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import annotations
 from pythonic_fp.containers.immutable_list import IList
 from pythonic_fp.iterables.merging import MergeEnum
 
@@ -26,7 +25,6 @@ class TestImmutableList:
         il2 = il1.map(lambda x: x % 3)
         assert il2[2] == il2[5] == 0
         assert il1[2] is not None and il1[2] * 2 == il1[5] == 6
-
 
     def test_empty(self) -> None:
         """Test functionality"""
