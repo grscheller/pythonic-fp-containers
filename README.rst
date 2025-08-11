@@ -9,8 +9,8 @@ Python package of container like data structures.
 +------------------+------------------------------------------------------+
 | Description      |                        Module                        |
 +==================+======================================================+
-| Single item box  | *module* ``pythonic_fp.containers.box``              |
 | Functional tuple | *module* ``pythonic_fp.containers.functional_tuple`` |
++------------------+------------------------------------------------------+
 | Immutable list   | *module* ``pythonic_fp.containers.immutable_list``   |
 +------------------+------------------------------------------------------+
 
