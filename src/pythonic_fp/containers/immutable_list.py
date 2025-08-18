@@ -23,8 +23,6 @@
 
 """
 
-from __future__ import annotations
-
 from collections.abc import Callable, Iterable, Iterator, Hashable
 from typing import cast, Never, overload, TypeVar
 from pythonic_fp.iterables.folding import accumulate
@@ -34,6 +32,7 @@ __all__ = ['IList']
 
 D = TypeVar('D', covariant=True)
 T = TypeVar('T')
+
 
 class IList[D](Hashable):
     """Immutable List like data structure.
@@ -45,6 +44,7 @@ class IList[D](Hashable):
     - both left and right int multiplication supported
 
     """
+
     __slots__ = ('_ds', '_len', '_hash')
     __match_args__ = ('_ds', '_len')
 
@@ -98,9 +98,9 @@ class IList[D](Hashable):
     @overload
     def __getitem__(self, idx: int, /) -> D: ...
     @overload
-    def __getitem__(self, idx: slice, /) -> IList[D]: ...
+    def __getitem__(self, idx: slice, /) -> 'IList[D]': ...
 
-    def __getitem__(self, idx: slice | int, /) -> IList[D] | D:
+    def __getitem__(self, idx: slice | int, /) -> 'IList[D] | D':
         if isinstance(idx, slice):
             return IList(self._ds[idx])
         return self._ds[idx]
@@ -116,7 +116,7 @@ class IList[D](Hashable):
 
         - fold left with an optional starting value
         - first argument of function ``f`` is for the accumulated value
-        
+
         "raises ValueError: when empty and a start value not given
 
         """
@@ -167,22 +167,22 @@ class IList[D](Hashable):
             acc = f(v, acc)
         return acc
 
-    def __add__(self, other: IList[D], /) -> IList[D]:
+    def __add__(self, other: 'IList[D]', /) -> 'IList[D]':
         if not isinstance(other, IList):
             msg = 'IList being added to something not a IList'
             raise ValueError(msg)
 
         return IList(concat(self, other))
 
-    def __mul__(self, num: int, /) -> IList[D]:
+    def __mul__(self, num: int, /) -> 'IList[D]':
         return IList(self._ds.__mul__(num if num > 0 else 0))
 
-    def __rmul__(self, num: int, /) -> IList[D]:
+    def __rmul__(self, num: int, /) -> 'IList[D]':
         return IList(self._ds.__mul__(num if num > 0 else 0))
 
     def accummulate[L](
         self, f: Callable[[L, D], L], s: L | None = None, /
-    ) -> IList[L]:
+    ) -> 'IList[L]':
         """Accumulate partial folds
 
         Accumulate partial fold results in an IList with
@@ -193,15 +193,15 @@ class IList[D](Hashable):
             return IList(accumulate(self, f))
         return IList(accumulate(self, f, s))
 
-    def map[U](self, f: Callable[[D], U], /) -> IList[U]:
+    def map[U](self, f: Callable[[D], U], /) -> 'IList[U]':
         return IList(map(f, self))
 
     def bind[U](
-            self,
-            f: Callable[[D], IList[U]],
-            merge_enum: MergeEnum = MergeEnum.Concat,
-            yield_partials: bool = False,
-        ) -> IList[U] | Never:
+        self,
+        f: 'Callable[[D], IList[U]]',
+        merge_enum: MergeEnum = MergeEnum.Concat,
+        yield_partials: bool = False,
+    ) -> 'IList[U] | Never':
         """Bind function `f` to the `IList`.
 
         :param ds: values to instantiate IList
@@ -210,9 +210,5 @@ class IList[D](Hashable):
 
         """
         return IList(
-            blend(
-                *map(f, self),
-                merge_enum=merge_enum,
-                yield_partials=yield_partials
-            )
+            blend(*map(f, self), merge_enum=merge_enum, yield_partials=yield_partials)
         )

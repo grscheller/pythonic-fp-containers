@@ -24,10 +24,6 @@
 | Queues           |        | package ``pythonic_fp.containers.queues``          |
 +------------------+--------+----------------------------------------------------+
 
-.. note::
-
-    Module ``box`` has  been moved to ``pythonic_fp.gadgets.box``.
-
 """
 
 __author__ = 'Geoffrey R. Scheller'

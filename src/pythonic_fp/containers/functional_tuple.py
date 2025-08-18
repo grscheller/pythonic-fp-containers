@@ -14,16 +14,15 @@
 
 """Pythonic FP - Functional Tuple"""
 
-from __future__ import annotations
-
 from collections.abc import Callable, Iterator
-from typing import cast, Never, overload, TypeVar
+from typing import cast, Never, overload, TypeVar, SupportsIndex
 from pythonic_fp.iterables.folding import accumulate
 from pythonic_fp.iterables.merging import blend, concat, MergeEnum
 
 __all__ = ['FTuple']
 
 D = TypeVar('D', covariant=True)
+
 
 class FTuple[D](tuple[D, ...]):
     """Functional Tuple suitable for inheritance
@@ -40,6 +39,7 @@ class FTuple[D](tuple[D, ...]):
     - Since these tuples are homogeneous, their covariance may be quirky
 
     """
+
     def __reversed__(self) -> Iterator[D]:
         for ii in range(len(self) - 1, -1, -1):
             yield (self[ii])
@@ -59,17 +59,14 @@ class FTuple[D](tuple[D, ...]):
                 return False
         return True
 
-    @overload    # type:ignore
-    def __getitem__(self, x: int) -> D: ...
     @overload
-    def __getitem__(self, x: slice) -> tuple[D, ...]: ...
+    def __getitem__(self, idx: SupportsIndex) -> D: ...
+    @overload
+    def __getitem__(self, idx: slice) -> tuple[D, ...]: ...
 
-    def __getitem__(self, idx: int | slice, /) -> tuple[D, ...] | D:
-        def newtup(tup: tuple[D, ...]) -> tuple[D, ...]:
-            return tup[0:-1] + tup[-1:]
-
+    def __getitem__(self, idx: SupportsIndex | slice) -> tuple[D, ...] | D:
         if isinstance(idx, slice):
-            return self.__class__(newtup(super().__getitem__(idx)))
+            return self.__class__(super().__getitem__(idx))
         else:
             return super().__getitem__(idx)
 
@@ -131,25 +128,25 @@ class FTuple[D](tuple[D, ...]):
             acc = f(v, acc)
         return acc
 
-    def copy(self) -> FTuple[D]:
+    def copy(self) -> 'FTuple[D]':
         """Return a shallow copy of ``FTuple`` in O(1) time & space complexity."""
         return self.__class__(self)
 
     def __add__(self, other: object, /) -> tuple[D, ...]:
-        if not isinstance(other, FTuple):
+        if not isinstance(other, tuple):
             msg = 'FTuple being added to something not an FTuple'
             raise ValueError(msg)
         return self.__class__(concat(self, other))
 
-    def __mul__(self, num: int, /) -> tuple[D, ...]:
+    def __mul__(self, num: SupportsIndex) -> tuple[D, ...]:
         return self.__class__(super().__mul__(num))
 
-    def __rmul__(self, num: int, /) -> tuple[D]:
+    def __rmul__(self, num: SupportsIndex) -> tuple[D, ...]:
         return self.__class__(super().__rmul__(num))
 
     def accummulate[L](
         self, f: Callable[[L, D], L], s: L | None = None, /
-    ) -> FTuple[L]:
+    ) -> 'FTuple[L]':
         """Accumulate partial folds
 
         Accumulate partial fold results in an ``FTuple`` with an optional
@@ -160,14 +157,15 @@ class FTuple[D](tuple[D, ...]):
             return FTuple(accumulate(self, f))
         return FTuple(accumulate(self, f, s))
 
-    def map[U](self, f: Callable[[D], U], /) -> FTuple[U]:
+    def map[U](self, f: Callable[[D], U], /) -> 'FTuple[U]':
         return FTuple(map(f, self))
 
     def bind[U](
-            self, f: Callable[[D], FTuple[U]],
-            merge_enum: MergeEnum = MergeEnum.Concat,
-            yield_partials: bool = False,
-        ) -> FTuple[U] | Never:
+        self,
+        f: 'Callable[[D], FTuple[U]]',
+        merge_enum: MergeEnum = MergeEnum.Concat,
+        yield_partials: bool = False,
+    ) -> 'FTuple[U] | Never':
         """Bind function ``f`` to the ``FTuple``.
 
         :param ds: values to instantiate FTuple
@@ -176,9 +174,5 @@ class FTuple[D](tuple[D, ...]):
 
         """
         return FTuple(
-            blend(
-                *map(f, self),
-                merge_enum=merge_enum,
-                yield_partials=yield_partials
-            )
+            blend(*map(f, self), merge_enum=merge_enum, yield_partials=yield_partials)
         )

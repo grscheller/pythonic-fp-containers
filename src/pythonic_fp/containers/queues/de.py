@@ -22,8 +22,6 @@
 - neither indexable nor sliceable by design
 
 """
-from __future__ import annotations
-
 from collections.abc import Callable, Iterable, Iterator
 from typing import TypeVar
 from pythonic_fp.circulararray.auto import CA
@@ -76,7 +74,7 @@ class DEQueue[D]:
     def __str__(self) -> str:
         return '>< ' + ' | '.join(map(str, self)) + ' ><'
 
-    def copy(self) -> DEQueue[D]:
+    def copy(self) -> 'DEQueue[D]':
         """Shallow copy.
 
         :return: shallow copy of the DEQueue
@@ -166,7 +164,7 @@ class DEQueue[D]:
                 return MayBe()
         return MayBe(self._ca.foldr(f, start))
 
-    def map[U](self, f: Callable[[D], U]) -> DEQueue[U]:
+    def map[U](self, f: Callable[[D], U]) -> 'DEQueue[U]':
         """Map f over the DEQueue left to right, retain original order.
 
         :return: new DEQueue instance

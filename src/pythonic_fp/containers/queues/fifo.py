@@ -22,8 +22,6 @@
 - O(1) length determination
 
 """
-from __future__ import annotations
-
 from collections.abc import Callable, Iterable, Iterator
 from typing import TypeVar
 from pythonic_fp.circulararray.auto import CA
@@ -72,7 +70,7 @@ class FIFOQueue[D]:
     def __str__(self) -> str:
         return '<< ' + ' < '.join(map(str, self)) + ' <<'
 
-    def copy(self) -> FIFOQueue[D]:
+    def copy(self) -> 'FIFOQueue[D]':
         """Shallow copy.
 
         :return: shallow copy of the FIFOQueue
@@ -131,7 +129,7 @@ class FIFOQueue[D]:
                 return MayBe()
         return MayBe(self._ca.foldl(f, start))
 
-    def map[U](self, f: Callable[[D], U]) -> FIFOQueue[U]:
+    def map[U](self, f: Callable[[D], U]) -> 'FIFOQueue[U]':
         """Map f over the FIFOQueue, retain original order.
 
         :return: new FIFOQueue instance
