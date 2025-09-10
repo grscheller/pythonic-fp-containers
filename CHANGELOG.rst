@@ -17,8 +17,14 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
-3.0.0 - TBD
-~~~~~~~~~~~
+3.0.1 - 2025-09-09
+~~~~~~~~~~~~~~~~~~
+
+- added .pyi files
+- updated Sphinx docs to new format
+
+3.0.0 - 2025-08-02
+~~~~~~~~~~~~~~~~~~
 
 Coordinated entire project pythonic-fp PyPI deployment.
 
