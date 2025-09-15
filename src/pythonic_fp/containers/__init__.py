@@ -12,17 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Package of container like data structures.
+"""
+Container like data structures
+==============================
 
-+------------------+--------+----------------------------------------------------+
-| Description      | Class  | Package/Module                                     |
-+==================+========+====================================================+
-| Functional tuple | FTuple | module ``pythonic_fp.containers.functional_tuple`` |
-+------------------+--------+----------------------------------------------------+
-| Immutable list   | IList  | module ``pythonic_fp.containers.immutable_list``   |
-+------------------+--------+----------------------------------------------------+
-| Queues           |        | package ``pythonic_fp.containers.queues``          |
-+------------------+--------+----------------------------------------------------+
++----------------------------------------------------+-----------+--------------------------+
+| module                                             | class     | description              |
++====================================================+===========+==========================+
+| ``module pythonic_fp.containers.functional_tuple`` | FTuple    | Functional tuple         |
++----------------------------------------------------+-----------+--------------------------+
+| ``module pythonic_fp.containers.immutable_list``   | IList     | Immutable list           |
++----------------------------------------------------+-----------+--------------------------+
+| ``module pythonic_fp.containers.queues.fifo``      | FIFOQueue | First in first out queue |
++----------------------------------------------------+-----------+--------------------------+
+| ``module pythonic_fp.containers.queues.lifo``      | LIFOQueue | Last in first out queue  |
++----------------------------------------------------+-----------+--------------------------+
+| ``module pythonic_fp.containers.queues.de``        | DEQueue   | Double ended queue       |
++----------------------------------------------------+-----------+--------------------------+
 
 """
 
