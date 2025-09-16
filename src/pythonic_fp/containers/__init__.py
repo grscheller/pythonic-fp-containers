@@ -13,22 +13,16 @@
 # limitations under the License.
 
 """
-Container like data structures
-==============================
+Container with FP interfaces
+============================
 
-+----------------------------------------------------+-----------+--------------------------+
-| module                                             | class     | description              |
-+====================================================+===========+==========================+
-| ``module pythonic_fp.containers.functional_tuple`` | FTuple    | Functional tuple         |
-+----------------------------------------------------+-----------+--------------------------+
-| ``module pythonic_fp.containers.immutable_list``   | IList     | Immutable list           |
-+----------------------------------------------------+-----------+--------------------------+
-| ``module pythonic_fp.containers.queues.fifo``      | FIFOQueue | First in first out queue |
-+----------------------------------------------------+-----------+--------------------------+
-| ``module pythonic_fp.containers.queues.lifo``      | LIFOQueue | Last in first out queue  |
-+----------------------------------------------------+-----------+--------------------------+
-| ``module pythonic_fp.containers.queues.de``        | DEQueue   | Double ended queue       |
-+----------------------------------------------------+-----------+--------------------------+
++---------------------------------------------+-----------+------------------+
+| module                                      | class     | description      |
++=============================================+===========+==================+
+| ``pythonic_fp.containers.functional_tuple`` | FTuple    | Functional Tuple |
++---------------------------------------------+-----------+------------------+
+| ``pythonic_fp.containers.immutable_list``   | IList     | Immutable List   |
++---------------------------------------------+-----------+------------------+
 
 """
 

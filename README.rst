@@ -2,23 +2,23 @@ Pythonic FP - Containers
 ========================
 
 PyPI project
-`pythonic-fp.containers <https://pypi.org/project/pythonic-fp.containers>`_.
+`pythonic-fp.containers
+<https://pypi.org/project/pythonic-fp.containers>`_.
 
-Python package of container like data structures.
+Python package of container like data structures with functional
+programming inspired tweaks.
 
-+------------------+------------------------------------------------------+
-| Description      |                        Module                        |
-+==================+======================================================+
-| Functional tuple | *module* ``pythonic_fp.containers.functional_tuple`` |
-+------------------+------------------------------------------------------+
-| Immutable list   | *module* ``pythonic_fp.containers.immutable_list``   |
-+------------------+------------------------------------------------------+
-
-**DEPRECATION WARNING:** ``pythonic_fp.fptools.box`` as been deprecated.
-Use ``pythonic_fp.box`` instead.
++---------------------------------------------+-----------+------------------+
+| module                                      | class     | name             |
++=============================================+===========+==================+
+| ``pythonic_fp.containers.functional_tuple`` | FTuple    | Functional Tuple |
++---------------------------------------------+-----------+------------------+
+| ``pythonic_fp.containers.immutable_list``   | IList     | Immutable List   |
++---------------------------------------------+-----------+------------------+
 
 This PyPI project is part of of the grscheller
-`pythonic-fp namespace projects <https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.
+`pythonic_fp Python namespace packages
+<https://github.com/grscheller/pythonic-fp/blob/main/README.md>`_.
 
 Documentation
 -------------
