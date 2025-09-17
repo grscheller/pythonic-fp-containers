@@ -12,47 +12,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Immutable guaranteed hashable lists
-
-- hashable if elements are hashable
-- declared covariant in its generic datatype
-  - hashability should be enforced by LSP tooling
-  - hashability will be enforced at runtime
-  - IList addition supported via concatenation
-  - IList integer multiplication supported
-
-"""
+"""Pythonic FP - Immutable guaranteed hashable lists."""
 
 from collections.abc import Callable, Iterable, Iterator, Hashable
-from typing import cast, Never, overload, TypeVar
+from typing import cast, Never, overload
 from pythonic_fp.iterables.folding import accumulate
 from pythonic_fp.iterables.merging import blend, concat, MergeEnum
 
 __all__ = ['IList']
 
-D = TypeVar('D', covariant=True)
-T = TypeVar('T')
-
 
 class IList[D](Hashable):
     """Immutable List like data structure.
 
+    - hashability should be enforced by LSP tooling
+    - hashability will be enforced at runtime
     - its method type parameters are also covariant
-    - hashability will be enforced by LSP tooling
     - supports both indexing and slicing
-    - addition concatenates results, resulting type a Union type
-    - both left and right int multiplication supported
+    - addition and left & right ``int`` multiplication supported
+
+      - addition is concatenation resulting in a union type
 
     """
 
     __slots__ = ('_ds', '_len', '_hash')
     __match_args__ = ('_ds', '_len')
 
-    L = TypeVar('L')
-    R = TypeVar('R')
-    U = TypeVar('U')
-
     def __init__(self, *dss: Iterable[D]) -> None:
+        """
+        :param dss: 0 or 1 iterables
+        """
         if (size := len(dss)) > 1:
             msg = f'IList expects at most 1 iterable argument, got {size}'
             raise ValueError(msg)
@@ -114,11 +103,11 @@ class IList[D](Hashable):
     ) -> L | None:
         """Fold Left
 
-        - fold left with an optional starting value
-        - first argument of function ``f`` is for the accumulated value
-
-        "raises ValueError: when empty and a start value not given
-
+        :param f: Folding function, first argument is for the accumulated value.
+        :param start: Optional starting value.
+        :param default: Optional default value if fold does not exist.
+        :returns: Folded value.
+        :raises ValueError: When empty and a start value not given.
         """
         it = iter(self._ds)
         if start is not None:
@@ -147,9 +136,11 @@ class IList[D](Hashable):
 
         - fold right with an optional starting value
         - second argument of function ``f`` is for the accumulated value
-
-        "raises ValueError: when empty and a start value not given
-
+        :param f: Folding function, second argument is for the accumulated value.
+        :param start: Optional starting value.
+        :param default: Optional default value if fold does not exist.
+        :returns: Folded value.
+        :raises ValueError: When empty and a start value not given.
         """
         it = reversed(self._ds)
         if start is not None:
@@ -169,7 +160,7 @@ class IList[D](Hashable):
 
     def __add__(self, other: 'IList[D]', /) -> 'IList[D]':
         if not isinstance(other, IList):
-            msg = 'IList being added to something not a IList'
+            msg = 'IList being added to something not an IList'
             raise ValueError(msg)
 
         return IList(concat(self, other))
@@ -183,11 +174,14 @@ class IList[D](Hashable):
     def accummulate[L](
         self, f: Callable[[L, D], L], s: L | None = None, /
     ) -> 'IList[L]':
-        """Accumulate partial folds
+        """Accumulate partial folds.
 
-        Accumulate partial fold results in an IList with
-        an optional starting value.
+        Accumulate partial fold with an optional starting value,
+        results in an ``IList``.
 
+        :param f: Folding function used to produce partial folds.
+        :param s: Optional starting value.
+        :returns: New ``FTuple`` of the partial folds.
         """
         if s is None:
             return IList(accumulate(self, f))
@@ -208,6 +202,14 @@ class IList[D](Hashable):
         :return: resulting IList
         :raises ValueError: if given unknown merge_type
 
+        """
+        """Bind function ``f`` to the ``IList``.
+
+        :param f: Function ``D -> IList[U]``
+        :param merge_type: ``MergeEnum`` to determine how to merge the result. 
+        :param yield_partials: Yield unmatched values if ``MergeEnum`` given as merge type.
+        :return: Resulting ``IList``.
+        :raises ValueError: If given an unknown merge enumeration.
         """
         return IList(
             blend(*map(f, self), merge_enum=merge_enum, yield_partials=yield_partials)

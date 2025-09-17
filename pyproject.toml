@@ -1,22 +1,17 @@
 [project]
 name = "pythonic-fp-containers"
-version = "3.0.2"
+version = "4.0.0"
 readme = "README.rst"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
 authors = [{ name = "Geoffrey R. Scheller", email = "geoffrey@scheller.com" }]
 keywords = [
-  "boxes",
-  "dequeue",
-  "dqueue",
-  "fifo",
+  "functional_containers",
   "functional_tuple",
   "immutable_list",
-  "lifo",
-  "queue",
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 3 - Alpha",
   "Framework :: Pytest",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: Apache Software License",
