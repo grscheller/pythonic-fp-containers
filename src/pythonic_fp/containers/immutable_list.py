@@ -101,7 +101,7 @@ class IList[D](Hashable):
         start: L | None = None,
         default: L | None = None,
     ) -> L | None:
-        """Fold Left
+        """Fold Left.
 
         :param f: Folding function, first argument is for the accumulated value.
         :param start: Optional starting value.
@@ -132,10 +132,8 @@ class IList[D](Hashable):
         start: R | None = None,
         default: R | None = None,
     ) -> R | None:
-        """Fold Right
+        """Fold Right.
 
-        - fold right with an optional starting value
-        - second argument of function ``f`` is for the accumulated value
         :param f: Folding function, second argument is for the accumulated value.
         :param start: Optional starting value.
         :param default: Optional default value if fold does not exist.
