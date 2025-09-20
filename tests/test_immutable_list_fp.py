@@ -15,7 +15,6 @@
 """Test FP use cases"""
 
 from pythonic_fp.containers.immutable_list import IList
-from pythonic_fp.splitends.splitend import SplitEnd as SE
 from pythonic_fp.iterables.merging import MergeEnum
 
 
@@ -29,15 +28,9 @@ class TestFP:
         def mult2[S](x: int, y: int) -> int:
             return x * y
 
-        def push_se[S](se: SE[S], d: S) -> SE[S]:
-            se.extend(d)
-            return se
-
         il0: IList[int] = IList()
         il5: IList[int] = IList([1, 2, 3, 4, 5])
-        se5 = SE(1, 2, 3, 4, 5)
 
-        assert se5.peak() == 5
         assert il5[1] == 2
         assert il5[4] == 5
 
@@ -54,17 +47,6 @@ class TestFP:
         assert il5.foldr(mult2, 1) == 120
         assert il5.foldr(mult2, 10) == 1200
         assert il5 == IList([1, 2, 3, 4, 5])
-
-        assert se5.fold(add2) == 15
-        assert se5.fold(add2, 10) == 25
-        assert se5.fold(mult2) == 120
-        assert se5.fold(mult2, 10) == 1200
-        se_temp = se5.copy()
-        se_temp.snip()
-        se5_rev = se_temp.fold(push_se, SE(se5.peak()))
-        assert se5_rev == SE(5, 4, 3, 2, 1)
-        assert se5.fold(add2) == 15
-        assert se5.fold(add2, 10) == 25
 
         assert il5.accummulate(add2) == IList([1, 3, 6, 10, 15])
         assert il5.accummulate(add2, 10) == IList([10, 11, 13, 16, 20, 25])
