@@ -17,6 +17,12 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
+PyPI 4.0.0 - 2025-09-09
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Decided not to deprecated pythonic-fp.queues and moved queue development
+back to there.
+
 PyPI 3.0.1 - 2025-09-09
 ~~~~~~~~~~~~~~~~~~~~~~~
 
