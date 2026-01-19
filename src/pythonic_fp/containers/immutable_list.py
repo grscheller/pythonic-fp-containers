@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Geoffrey R. Scheller
+# Copyright 2023-2026 Geoffrey R. Scheller
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,15 +23,16 @@ __all__ = ['IList']
 
 
 class IList[D](Hashable):
-    """Immutable List like data structure.
+    """
+    .. admonition:: Immutable List like data structure.
 
-    - hashability should be enforced by LSP tooling
-    - hashability will be enforced at runtime
-    - its method type parameters are also covariant
-    - supports both indexing and slicing
-    - addition and left & right ``int`` multiplication supported
+        - hashability should be enforced by LSP tooling
+        - hashability will be enforced at runtime
+        - its method type parameters are also covariant
+        - supports both indexing and slicing
+        - addition and left & right ``int`` multiplication supported
 
-      - addition is concatenation resulting in a union type
+          - addition is concatenation resulting in a union type
 
     """
 
@@ -41,6 +42,7 @@ class IList[D](Hashable):
     def __init__(self, *dss: Iterable[D]) -> None:
         """
         :param dss: 0 or 1 iterables
+
         """
         if (size := len(dss)) > 1:
             msg = f'IList expects at most 1 iterable argument, got {size}'
@@ -108,6 +110,7 @@ class IList[D](Hashable):
         :param default: Optional default value if fold does not exist.
         :returns: Folded value.
         :raises ValueError: When empty and a start value not given.
+
         """
         it = iter(self._ds)
         if start is not None:
@@ -139,6 +142,7 @@ class IList[D](Hashable):
         :param default: Optional default value if fold does not exist.
         :returns: Folded value.
         :raises ValueError: When empty and a start value not given.
+
         """
         it = reversed(self._ds)
         if start is not None:
@@ -180,6 +184,7 @@ class IList[D](Hashable):
         :param f: Folding function used to produce partial folds.
         :param s: Optional starting value.
         :returns: New ``FTuple`` of the partial folds.
+
         """
         if s is None:
             return IList(accumulate(self, f))
@@ -194,13 +199,6 @@ class IList[D](Hashable):
         merge_enum: MergeEnum = MergeEnum.Concat,
         yield_partials: bool = False,
     ) -> 'IList[U] | Never':
-        """Bind function `f` to the `IList`.
-
-        :param ds: values to instantiate IList
-        :return: resulting IList
-        :raises ValueError: if given unknown merge_type
-
-        """
         """Bind function ``f`` to the ``IList``.
 
         :param f: Function ``D -> IList[U]``
@@ -208,6 +206,7 @@ class IList[D](Hashable):
         :param yield_partials: Yield unmatched values if ``MergeEnum`` given as merge type.
         :return: Resulting ``IList``.
         :raises ValueError: If given an unknown merge enumeration.
+
         """
         return IList(
             blend(*map(f, self), merge_enum=merge_enum, yield_partials=yield_partials)

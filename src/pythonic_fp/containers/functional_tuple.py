@@ -1,4 +1,5 @@
-# Copyright 2023-2025 Geoffrey R. Scheller
+# Copyright 2023-2026 Geoffrey R. Scheller
+
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,18 +24,17 @@ __all__ = ['FTuple']
 
 
 class FTuple[D](tuple[D, ...]):
-    """Functional Tuple suitable for inheritance.
+    """
+    .. admonition:: Functional Tuple suitable for inheritance.
 
-    - supports both indexing and slicing
-    - int multiplication and FTuple addition supported
+        - supports both indexing and slicing
+        - int multiplication and FTuple addition supported
+        - addition concatenates results, resulting in a Union type
+        - both left and right int multiplication supported
+        - homogeneous in its data type
+        - supports being further inherited from
+        - unslotted
 
-      - addition concatenates results, resulting in a Union type
-      - both left and right int multiplication supported
-      - homogeneous in its data type
-      - supports being further inherited from
-      - unslotted
-
-    Since these tuples are homogeneous, their covariance may be quirky.
     """
 
     def __reversed__(self) -> Iterator[D]:
@@ -84,6 +84,7 @@ class FTuple[D](tuple[D, ...]):
         :param default: An optional default value if fold does not exist.
         :raises ValueError: When ``FTuple`` empty and a start value not given.
         :returns: The folded value if it exists, otherwise the default value.
+
         """
         it_self = iter(self)
         if start is not None:
@@ -113,6 +114,7 @@ class FTuple[D](tuple[D, ...]):
         :param default: An optional default value if fold does not exist.
         :raises ValueError: when FTuple empty and a start value not given
         :returns: The folded value if it exists, otherwise the default value.
+
         """
         it_self = reversed(self)
         if start is not None:
@@ -132,6 +134,7 @@ class FTuple[D](tuple[D, ...]):
         """Return a shallow copy of ``FTuple`` in O(1) time & space complexity.
 
         :returns: New ``FTuple``.
+
         """
         return self.__class__(self)
 
@@ -158,6 +161,7 @@ class FTuple[D](tuple[D, ...]):
         :param f: Folding function used to produce partial folds.
         :param s: Optional starting value.
         :returns: New ``FTuple`` of the partial folds.
+
         """
         if s is None:
             return FTuple(accumulate(self, f))
@@ -179,6 +183,7 @@ class FTuple[D](tuple[D, ...]):
         :param yield_partials: Yield unmatched values if ``MergeEnum`` given as merge type.
         :return: Resulting ``FTuple``.
         :raises ValueError: If given an unknown merge enumeration.
+
         """
         return FTuple(
             blend(*map(f, self), merge_enum=merge_type, yield_partials=yield_partials)
