@@ -12,7 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Immutable guaranteed hashable lists."""
+"""
+.. admonition:: Immutable List like data structure.
+
+    - hashability should be enforced by LSP tooling
+    - hashability will be enforced at runtime
+    - its method type parameters are also covariant
+    - supports both indexing and slicing
+    - addition and left & right ``int`` multiplication supported
+
+      - addition is concatenation resulting in a union type
+
+"""
 
 from collections.abc import Callable, Iterable, Iterator, Hashable
 from typing import cast, Never, overload
@@ -23,19 +34,6 @@ __all__ = ['IList']
 
 
 class IList[D](Hashable):
-    """
-    .. admonition:: Immutable List like data structure.
-
-        - hashability should be enforced by LSP tooling
-        - hashability will be enforced at runtime
-        - its method type parameters are also covariant
-        - supports both indexing and slicing
-        - addition and left & right ``int`` multiplication supported
-
-          - addition is concatenation resulting in a union type
-
-    """
-
     __slots__ = ('_ds', '_len', '_hash')
     __match_args__ = ('_ds', '_len')
 
@@ -202,7 +200,7 @@ class IList[D](Hashable):
         """Bind function ``f`` to the ``IList``.
 
         :param f: Function ``D -> IList[U]``
-        :param merge_type: ``MergeEnum`` to determine how to merge the result. 
+        :param merge_type: ``MergeEnum`` to determine how to merge the result.
         :param yield_partials: Yield unmatched values if ``MergeEnum`` given as merge type.
         :return: Resulting ``IList``.
         :raises ValueError: If given an unknown merge enumeration.

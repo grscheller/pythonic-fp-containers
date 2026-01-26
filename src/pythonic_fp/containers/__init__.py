@@ -13,16 +13,15 @@
 # limitations under the License.
 
 """
-Container with FP interfaces
-----------------------------
+Containers with FP interfaces
+-----------------------------
 
-+---------------------------------------------+-----------+------------------+
-| module                                      | class     | description      |
-+=============================================+===========+==================+
-| ``pythonic_fp.containers.functional_tuple`` | FTuple    | Functional Tuple |
-+---------------------------------------------+-----------+------------------+
-| ``pythonic_fp.containers.immutable_list``   | IList     | Immutable List   |
-+---------------------------------------------+-----------+------------------+
+=========================================== ========== ================
+module                                      class      description
+=========================================== ========== ================
+**pythonic_fp.containers.functional_tuple** **FTuple** Functional Tuple
+**pythonic_fp.containers.immutable_list**   **IList**  Immutable List
+=========================================== ========== ================
 
 """
 

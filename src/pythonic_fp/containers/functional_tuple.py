@@ -13,7 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Pythonic FP - Functional Tuple"""
+"""
+.. admonition:: Functional Tuple suitable for inheritance.
+
+    - supports both indexing and slicing
+    - int multiplication and FTuple addition supported
+    - addition concatenates results, resulting in a Union type
+    - both left and right int multiplication supported
+    - homogeneous in its data type
+    - supports being further inherited from
+    - unslotted
+
+"""
 
 from collections.abc import Callable, Iterator
 from typing import cast, Never, overload, SupportsIndex
@@ -24,19 +35,6 @@ __all__ = ['FTuple']
 
 
 class FTuple[D](tuple[D, ...]):
-    """
-    .. admonition:: Functional Tuple suitable for inheritance.
-
-        - supports both indexing and slicing
-        - int multiplication and FTuple addition supported
-        - addition concatenates results, resulting in a Union type
-        - both left and right int multiplication supported
-        - homogeneous in its data type
-        - supports being further inherited from
-        - unslotted
-
-    """
-
     def __reversed__(self) -> Iterator[D]:
         for ii in range(len(self) - 1, -1, -1):
             yield (self[ii])
@@ -179,7 +177,7 @@ class FTuple[D](tuple[D, ...]):
         """Bind function ``f`` to the ``FTuple``.
 
         :param f: Function ``D -> FTuple[U]``
-        :param merge_type: ``MergeEnum`` to determine how to merge the result. 
+        :param merge_type: ``MergeEnum`` to determine how to merge the result.
         :param yield_partials: Yield unmatched values if ``MergeEnum`` given as merge type.
         :return: Resulting ``FTuple``.
         :raises ValueError: If given an unknown merge enumeration.
