@@ -16,12 +16,10 @@
 Containers with FP interfaces
 -----------------------------
 
-=========================================== ========== ================
-module                                      class      description
-=========================================== ========== ================
-**pythonic_fp.containers.functional_tuple** **FTuple** Functional Tuple
-**pythonic_fp.containers.immutable_list**   **IList**  Immutable List
-=========================================== ========== ================
+.. admonition:: Functional variants of Python builtins
+
+    - class **FTuple:** A tuple-like object with a functional interface.
+    - class **IList:** An immutable, hashable list-like object.
 
 """
 
