@@ -1,5 +1,5 @@
 pythonic-fp-containers
-----------------------
+======================
 
 Project
 `pythonic-fp-containers <https://pypi.org/project/pythonic-fp-containers/>`_
