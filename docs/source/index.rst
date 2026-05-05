@@ -2,12 +2,12 @@ pythonic-fp-containers
 ======================
 
 Project
-`pythonic-fp-containers <https://pypi.org/project/pythonic-fp-containers/>`_
+`Pythonic FP - Containers <https://pypi.org/project/pythonic-fp-containers/>`_
 one of the
 `Pythonic FP <https://grscheller.github.io/pythonic-fp/>`_
 PyPI projects.
 
-**Custom PyPI 0.0.0 release**
+|RELEASE_STRING|
 
 .. toctree::
     :caption: Overview
