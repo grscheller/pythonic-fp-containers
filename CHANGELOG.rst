@@ -17,6 +17,13 @@ See `Semantic Versioning 2.0.0 <https://semver.org>`_.
 Releases and Important Milestones
 ---------------------------------
 
+PyPI 4.1.0 - 2026-05-14
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Documentation now in maintenance mode.
+
+Intend to make these containers final instead of inheritable.
+
 Development Status Reappraisal - 2026-05-05
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

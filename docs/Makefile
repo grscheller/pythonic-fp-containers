@@ -5,8 +5,8 @@
 #  - later needs to agree with pyproject.toml
 PROJECT_NAME = Containers
 PYPI_NAME = containers
-RELEASE_VERSION = 4.0.1
-DEVEL_VERSION = 4.0.2
+RELEASE_VERSION = 4.1.0
+DEVEL_VERSION = 5.0.0
 CUSTOM_VERSION = 0.0.0
 
 SPHINXOPTS ?=

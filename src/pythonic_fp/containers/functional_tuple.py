@@ -13,19 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-.. admonition:: Functional Tuple suitable for inheritance.
-
-    - supports both indexing and slicing
-    - int multiplication and FTuple addition supported
-    - addition concatenates results, resulting in a Union type
-    - both left and right int multiplication supported
-    - homogeneous in its data type
-    - supports being further inherited from
-    - unslotted
-
-"""
-
 from collections.abc import Callable, Iterator
 from typing import cast, Never, overload, SupportsIndex
 from pythonic_fp.iterables.folding import accumulate
@@ -35,14 +22,43 @@ __all__ = ['FTuple']
 
 
 class FTuple[D](tuple[D, ...]):
+    """
+    .. admonition:: Functional Tuple
+
+        - intended for further inheritance
+        - supports both indexing and slicing
+        - int multiplication and FTuple addition supported
+        - addition concatenates results, resulting in a Union type
+        - both left and right int multiplication supported
+        - homogeneous in its data type
+        - unslotted
+
+        .. note::
+
+            Example of code very early in project. Different ways
+            to use __dunders__ than what I do lately.
+
+    """
+
     def __reversed__(self) -> Iterator[D]:
+        """
+        .. admonition:: reverse iter
+
+            :yields: the tuples elements in reverse order
+
+        """
         for ii in range(len(self) - 1, -1, -1):
             yield (self[ii])
 
-    def __repr__(self) -> str:
-        return f'{self.__class__.__name__}(' + ', '.join(map(repr, self)) + ')'
-
     def __eq__(self, other: object, /) -> bool:
+        """
+        .. admonition:: equality comparison
+
+            :param other: The ``object`` to which to be compared.
+            :returns: ``True`` if ``other`` is the same type and 
+                      corresponding elements compare as equal.
+
+        """
         if not isinstance(other, self.__class__):
             return False
         if (length := len(self)) != len(other):
@@ -65,6 +81,9 @@ class FTuple[D](tuple[D, ...]):
         else:
             return super().__getitem__(idx)
 
+    def __repr__(self) -> str:
+        return f'{self.__class__.__name__}(' + ', '.join(map(repr, self)) + ')'
+
     def foldl[L](
         self,
         f: Callable[[L, D], L],
@@ -72,16 +91,20 @@ class FTuple[D](tuple[D, ...]):
         start: L | None = None,
         default: L | None = None,
     ) -> L:
-        """Fold Left with optional starting and default values.
+        """
+        .. admonition:: fold left
 
-        - fold left with an optional starting value
-        - first argument of function ``f`` is for the accumulated value
+            Reduce left with optional starting and default values.
 
-        :param f: The folding function, first argument is for the accumulated value.
-        :param start: An optional starting value.
-        :param default: An optional default value if fold does not exist.
-        :raises ValueError: When ``FTuple`` empty and a start value not given.
-        :returns: The folded value if it exists, otherwise the default value.
+            :param f: The folding function, first argument is for
+                      the accumulated value.
+            :param start: An optional starting value.
+            :param default: An optional default value
+                            if fold does not exist.
+            :raises ValueError: When ``FTuple`` empty and a start value
+                                was not not given.
+            :returns: Folded value if it exists, otherwise
+                      the default value if given.
 
         """
         it_self = iter(self)
@@ -105,13 +128,20 @@ class FTuple[D](tuple[D, ...]):
         start: R | None = None,
         default: R | None = None,
     ) -> R:
-        """Fold Right with optional starting and default values.
+        """
+        .. admonition:: fold right
 
-        :param f: The folding function, second argument is for the accumulated value.
-        :param start: An optional starting value.
-        :param default: An optional default value if fold does not exist.
-        :raises ValueError: when FTuple empty and a start value not given
-        :returns: The folded value if it exists, otherwise the default value.
+            Reduce right with optional starting and default values.
+
+            :param f: The folding function, second argument is for
+                    the accumulated value.
+            :param start: An optional starting value.
+            :param default: An optional default value
+                            if fold does not exist.
+            :raises ValueError: when ``FTuple`` empty and a start value
+                                was not given
+            :returns: The folded value if it exists, otherwise
+                      the default value if given.
 
         """
         it_self = reversed(self)
@@ -129,9 +159,13 @@ class FTuple[D](tuple[D, ...]):
         return acc
 
     def copy(self) -> 'FTuple[D]':
-        """Return a shallow copy of ``FTuple`` in O(1) time & space complexity.
+        """
+        .. admonition:: copy
 
-        :returns: New ``FTuple``.
+            Return a shallow copy of ``FTuple`` in O(1)
+            time & space complexity.
+
+            :returns: A new ``FTuple`` instance.
 
         """
         return self.__class__(self)
@@ -151,14 +185,12 @@ class FTuple[D](tuple[D, ...]):
     def accummulate[L](
         self, f: Callable[[L, D], L], s: L | None = None, /
     ) -> 'FTuple[L]':
-        """Accumulate partial folds.
+        """
+        .. admonition:: accumulate partial folds
 
-        Accumulate partial fold with an optional starting value,
-        results in an ``FTuple``.
-
-        :param f: Folding function used to produce partial folds.
-        :param s: Optional starting value.
-        :returns: New ``FTuple`` of the partial folds.
+            :param f: Folding function used to produce partial folds.
+            :param s: Optional starting value.
+            :returns: New ``FTuple`` of the partial folds.
 
         """
         if s is None:
@@ -166,6 +198,13 @@ class FTuple[D](tuple[D, ...]):
         return FTuple(accumulate(self, f, s))
 
     def map[U](self, f: Callable[[D], U], /) -> 'FTuple[U]':
+        """
+        .. admonition:: map
+
+            :param f: Folding function used to produce partial folds.
+            :returns: A new ``FTuple`` instance.
+
+        """
         return FTuple(map(f, self))
 
     def bind[U](
@@ -174,13 +213,17 @@ class FTuple[D](tuple[D, ...]):
         merge_type: MergeEnum = MergeEnum.Concat,
         yield_partials: bool = False,
     ) -> 'FTuple[U] | Never':
-        """Bind function ``f`` to the ``FTuple``.
+        """
+        .. admonition:: bind
 
-        :param f: Function ``D -> FTuple[U]``
-        :param merge_type: ``MergeEnum`` to determine how to merge the result.
-        :param yield_partials: Yield unmatched values if ``MergeEnum`` given as merge type.
-        :return: Resulting ``FTuple``.
-        :raises ValueError: If given an unknown merge enumeration.
+            Flat map function ``f`` with the ``FTuple`` with different
+            merging strategies.
+
+            :param f: Function ``D -> FTuple[U]``
+            :param merge_type: ``MergeEnum`` to determine how to merge the result.
+            :param yield_partials: Yield unmatched values if ``MergeEnum`` given as merge type.
+            :returns: A new ``FTuple`` instance.
+            :raises ValueError: If given an unknown merge enumeration.
 
         """
         return FTuple(

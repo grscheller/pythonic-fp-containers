@@ -18,6 +18,8 @@ Containers with FP interfaces
 
 .. admonition:: Functional variants of Python builtins
 
+    Not sure the direction this should take.
+
     - class **FTuple:** A tuple-like object with a functional interface.
     - class **IList:** An immutable, hashable list-like object.
 
