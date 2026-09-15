@@ -1,11 +1,10 @@
 # Pythonic FP - Containers
 
-Python package of container like data structures with functional
+Python package for containers of like data structures with functional
 programming inspired tweaks.
 
 PyPI project
 [pythonic-fp-containers](https://pypi.org/project/pythonic-fp-containers).
-
 Part of the
 [pythonic-fp](https://grscheller.github.io/pythonic-fp/)
 PyPI projects.
