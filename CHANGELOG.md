@@ -10,7 +10,7 @@ Strict 3 digit semantic versioning adopted 2025-05-19.
 - **MINOR** version incremented for backward compatible added functionality
 - **PATCH** version incremented for backward compatible bug fixes
 
-See `Semantic Versioning 2.0.0 <https://semver.org>`_.
+See [Semantic Versioning 2.0.0](https://semver.org).
 
 ## Releases and Important Milestones
 
@@ -111,8 +111,8 @@ here: https://grscheller.github.io/grscheller-pypi-namespace-docs/
 
 - made classes in nodes module less passive with better encapsulation
 - compatible with:
-  - grscheller.fp >= 1.0.0 < 1.0.1
-  - grscheller.circular-array >= 3.6.1 < 3.7
+  - `grscheller.fp >= 1.0.0 < 1.0.1`
+  - `grscheller.circular-array >= 3.6.1 < 3.7`
 
 ### PyPI 0.21.0 - 2024-08-20
 
@@ -190,14 +190,14 @@ Preparing to support PEP 695 generics.
 
 Preparing to add TypeVars.
 
-- tests working with grscheller.circular-array >= 3.0.0, \<3.2
+- tests working with `grscheller.circular-array >= 3.0.0, <3.2`
   - lots of mypy complaints
   - first version using TypeVars will be 0.15.0.0
 
 ### PyPI 0.14.0 - 2024-03-09
 
 - updated dependency on CircularArray class
-  - dependencies = ["grscheller.circular-array >= 0.2.0, < 2.1"]
+  - `dependencies = ["grscheller.circular-array >= 0.2.0, < 2.1"]`
 - minor README.md wordsmithing
 - keeping project an Alpha release for now
 
@@ -246,7 +246,7 @@ Forgot to update pyproject.toml dependencies.
   - will not include `docs/`
   - will not include `.gitignore` and `.github/`
   - will include `tests/`
-  - made pytest >= 7.4 an optional test dependency
+  - made `pytest >= 7.4` an optional test dependency
 
 ### PyPI 0.12.2 - 2024-01-17
 
