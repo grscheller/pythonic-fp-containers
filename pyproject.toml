@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "pythonic-fp-containers"
-version = "4.2.0"
+version = "6.0.0"
 description = "Containers with FP interfaces."
 readme = "README.md"
 requires-python = ">=3.14"  # floor: PEP 649/749 deferred annotations — class-level self-reference possible NameErrors on <3.14
@@ -27,9 +27,9 @@ classifiers = [
   "Typing :: Typed",
 ]
 dependencies = [
-  "pythonic-fp-circulararray>=6.2.2,<6.3",
-  "pythonic-fp-fptools>=6,<6.2",
-  "pythonic-fp-iterables>=5.1.4,<6",
+  "pythonic-fp-circulararray>=6.3",
+  "pythonic-fp-fptools>=6.2",
+  "pythonic-fp-iterables>=6",
 ]
 
 [project.urls]
@@ -54,6 +54,11 @@ name = "pythonic_fp.containers"
 exclude = [
   "docs/",
   "tests/",
+  "**/.mypy_cache/",
+  "**/.ruff_cache/",
+  "**/.pytest_cache/",
+  "**/__pycache__/",
+  "**/.dmypy.json",
 ]
 
 [tool.pytest]
