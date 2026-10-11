@@ -2,23 +2,33 @@
 
 PyPI **pythonic-fp.containers** project. Functional oriented containers.
 
-## Semantic Versioning
+## Release Versioning
 
-Strict 3 digit semantic versioning adopted 2025-05-19.
+A tiered strict 3 digit semantic versioning will be used
 
-- **MAJOR** version incremented for incompatible API changes
-- **MINOR** version incremented for backward compatible added functionality
-- **PATCH** version incremented for backward compatible bug fixes
+- **MAJOR** incremented for incompatible API changes across Pythonic FP libraries
+- **MINOR** incremented for backward compatible added functionality
+- **PATCH** incremented for backward compatible bug fixes
 
-See [Semantic Versioning 2.0.0](https://semver.org).
+All versions with the same major release numbers should be consistent
+with each other. Note that lower floors will still be used.
 
 ## Releases and Important Milestones
 
+### PyPI release 6.0.0 - 2026-10-TBA
+
+No substantive changes were made to this library.
+
+Going forward, consistent releases of the Pythonic FP libraries will
+share a common major release number. Will use caps to keep the major
+release lines from mixing. Hence the reason there are no ``5.x.y``
+versions.
+
 ### PyPI release 4.2.0 - 2026-10-10
 
-Put <6 caps on dependencies, all pythonic-fp projects will be bumped
-up to the 6.0.0 release level, if not already at the 6.x.y level.
-The next pythonic-fp release will be 6.0.0 to track these for
+Put `<6` caps on dependencies, all pythonic-fp projects will be bumped
+up to the `6.0.0` release level, if not already at the `6.x.y` level.
+The next pythonic-fp release will be `6.0.0` to track these for
 integration testing.
 
 ### PyPI 4.1.0 - 2026-05-14
@@ -147,7 +157,7 @@ Development environment only. Datastructures coming back together
 ### PyPI 0.20.2.0 - 2024-08-03
 
 Development environment only.
-Still preparing for 1.0.0 datastructures release.
+Still preparing for `1.0.0` datastructures release.
 
 - Going down a typing rabbit hole
   - as I tighten up typing, I find I must do so for dependencies too
