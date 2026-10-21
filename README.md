@@ -6,18 +6,18 @@ programming inspired tweaks.
 PyPI project
 [pythonic-fp-containers](https://pypi.org/project/pythonic-fp-containers).
 Part of the
-[pythonic-fp](https://grscheller.github.io/pythonic-fp/)
+[pythonic-fp](https://grscheller.github.io/pythonic-fp)
 PyPI projects.
 
 ## Documentation
 
 Documentation and other links for this project are hosted on
-[GitHub Pages](https://grscheller.github.io/pythonic-fp/projects/containers.html).
+[GitHub Pages](https://grscheller.github.io/pythonic-fp-containers).
 
 | module | class | name |
 |:------ |:-----:|:---- |
-| `pythonic_fp.containers.functional_tuple` | FTuple | Functional Tuple |
-| `pythonic_fp.containers.immutable_list` | IList | Immutable List |
+| pythonic_fp.containers.functional_tuple | FTuple | Functional Tuple |
+| pythonic_fp.containers.immutable_list | IList | Immutable List |
 
 ## Copyright and License
 
