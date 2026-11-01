@@ -74,6 +74,10 @@ warn_redundant_casts = true
 warn_return_any = true
 warn_unused_configs = true
 
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+strict_equality = false
+
 [tool.ruff]
 target-version = "py314"
 
