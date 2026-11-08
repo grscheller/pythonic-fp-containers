@@ -12,10 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from collections.abc import Callable, Iterable, Iterator, Hashable
-from typing import cast, Never, overload
+from collections.abc import Callable, Hashable, Iterable, Iterator
+from typing import cast, overload
+
 from pythonic_fp.iterables.folding import accumulate
-from pythonic_fp.iterables.merging import blend, concat, MergeEnum
+from pythonic_fp.iterables.merging import MergeEnum, blend, concat
 
 __all__ = ['IList']
 
@@ -34,7 +35,7 @@ class IList[D](Hashable):
 
     """
 
-    __slots__ = ('_ds', '_len', '_hash')
+    __slots__ = ('_ds', '_hash', '_len')
     __match_args__ = ('_ds', '_len')
 
     def __init__(self, *ds: Iterable[D]) -> None:
@@ -48,7 +49,7 @@ class IList[D](Hashable):
             msg = f'IList expects at most 1 iterable argument, got {size}'
             raise ValueError(msg)
         else:
-            self._ds: tuple[D, ...] = tuple(ds[0]) if size == 1 else tuple()
+            self._ds: tuple[D, ...] = tuple(ds[0]) if size == 1 else ()
             self._len = len(self._ds)
             try:
                 self._hash = hash((self._len, 42) + self._ds)
@@ -118,9 +119,9 @@ class IList[D](Hashable):
     @overload
     def __getitem__(self, idx: int, /) -> D: ...
     @overload
-    def __getitem__(self, idx: slice, /) -> 'IList[D]': ...
+    def __getitem__(self, idx: slice, /) -> IList[D]: ...
 
-    def __getitem__(self, idx: slice | int, /) -> 'IList[D] | D':
+    def __getitem__(self, idx: slice | int, /) -> IList[D] | D:
         """
         .. admonition:: getitem
 
@@ -222,7 +223,7 @@ class IList[D](Hashable):
             acc = f(v, acc)
         return acc
 
-    def __add__(self, other: 'IList[D]', /) -> 'IList[D]':
+    def __add__(self, other: IList[D], /) -> IList[D]:
         """
         .. admonition:: add by concatenation
 
@@ -237,11 +238,11 @@ class IList[D](Hashable):
         """
         if not isinstance(other, IList):
             msg = 'IList being added to something not an IList'
-            raise ValueError(msg)
+            raise TypeError(msg)
 
         return IList(concat(self, other))
 
-    def __mul__(self, num: int, /) -> 'IList[D]':
+    def __mul__(self, num: int, /) -> IList[D]:
         """
         .. admonition:: add by concatenation
 
@@ -255,9 +256,9 @@ class IList[D](Hashable):
                 Maybe define a "column vector" version?
 
         """
-        return IList(self._ds.__mul__(num if num > 0 else 0))
+        return IList(self._ds.__mul__(max(0, num)))
 
-    def __rmul__(self, num: int, /) -> 'IList[D]':
+    def __rmul__(self, num: int, /) -> IList[D]:
         """
         .. admonition:: concatenation with itself
 
@@ -267,11 +268,11 @@ class IList[D](Hashable):
             :raises ValueError: When ``other`` is not an ``IList``.
 
         """
-        return IList(self._ds.__mul__(num if num > 0 else 0))
+        return IList(self._ds.__mul__(max(0, num)))
 
     def accummulate[L](
         self, f: Callable[[L, D], L], s: L | None = None, /
-    ) -> 'IList[L]':
+    ) -> IList[L]:
         """
         .. admonition:: accumulate partial folds
 
@@ -287,7 +288,7 @@ class IList[D](Hashable):
             return IList(accumulate(self, f))
         return IList(accumulate(self, f, s))
 
-    def map[U](self, f: Callable[[D], U], /) -> 'IList[U]':
+    def map[U](self, f: Callable[[D], U], /) -> IList[U]:
         """
         .. admonition:: map
 
@@ -299,10 +300,10 @@ class IList[D](Hashable):
 
     def bind[U](
         self,
-        f: 'Callable[[D], IList[U]]',
+        f: Callable[[D], IList[U]],
         merge_enum: MergeEnum = MergeEnum.Concat,
         yield_partials: bool = False,
-    ) -> 'IList[U] | Never':
+    ) -> IList[U]:
         """
         .. admonition:: bind
 

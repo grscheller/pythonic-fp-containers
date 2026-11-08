@@ -14,9 +14,10 @@
 # limitations under the License.
 
 from collections.abc import Callable, Iterator
-from typing import cast, Never, overload, SupportsIndex
+from typing import SupportsIndex, cast, overload
+
 from pythonic_fp.iterables.folding import accumulate
-from pythonic_fp.iterables.merging import blend, concat, MergeEnum
+from pythonic_fp.iterables.merging import MergeEnum, blend, concat
 
 __all__ = ['FTuple']
 
@@ -158,7 +159,7 @@ class FTuple[D](tuple[D, ...]):
             acc = f(v, acc)
         return acc
 
-    def copy(self) -> 'FTuple[D]':
+    def copy(self) -> FTuple[D]:
         """
         .. admonition:: copy
 
@@ -173,7 +174,13 @@ class FTuple[D](tuple[D, ...]):
     def __add__(self, other: object, /) -> tuple[D, ...]:
         if not isinstance(other, tuple):
             msg = 'FTuple being added to something not an FTuple'
-            raise ValueError(msg)
+            raise TypeError(msg)
+        return self.__class__(concat(self, other))
+
+    def __radd__(self, other: object, /) -> tuple[D, ...]:
+        if not isinstance(other, tuple):
+            msg = 'FTuple being added to something not an FTuple'
+            raise TypeError(msg)
         return self.__class__(concat(self, other))
 
     def __mul__(self, num: SupportsIndex) -> tuple[D, ...]:
@@ -184,7 +191,7 @@ class FTuple[D](tuple[D, ...]):
 
     def accummulate[L](
         self, f: Callable[[L, D], L], s: L | None = None, /
-    ) -> 'FTuple[L]':
+    ) -> FTuple[L]:
         """
         .. admonition:: accumulate partial folds
 
@@ -197,7 +204,7 @@ class FTuple[D](tuple[D, ...]):
             return FTuple(accumulate(self, f))
         return FTuple(accumulate(self, f, s))
 
-    def map[U](self, f: Callable[[D], U], /) -> 'FTuple[U]':
+    def map[U](self, f: Callable[[D], U], /) -> FTuple[U]:
         """
         .. admonition:: map
 
@@ -209,10 +216,10 @@ class FTuple[D](tuple[D, ...]):
 
     def bind[U](
         self,
-        f: 'Callable[[D], FTuple[U]]',
+        f: Callable[[D], FTuple[U]],
         merge_type: MergeEnum = MergeEnum.Concat,
         yield_partials: bool = False,
-    ) -> 'FTuple[U] | Never':
+    ) -> FTuple[U]:
         """
         .. admonition:: bind
 
